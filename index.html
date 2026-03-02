@@ -158,12 +158,17 @@
         <a href="#testimonials" class="text-sm font-medium text-gray-300 hover:text-white transition uppercase tracking-wide">Depoimentos</a>
         <a href="#faq" class="text-sm font-medium text-gray-300 hover:text-white transition uppercase tracking-wide">FAQ</a>
         <a href="#contact" class="text-sm font-medium text-gray-300 hover:text-white transition uppercase tracking-wide">Contato</a>
-<a id="btn-revisao"
+<a id="btn-revisao-hero"
    href="https://wa.me/5563999592030?text=Olá!%20Quero%20agendar%20uma%20revisão%20preventiva"
    target="_blank"
-   class="inline-flex items-center justify-center bg-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-700 transition">
-   Agendar Revisão
-</a>          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-5 h-5" alt="WhatsApp">
+   class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#f04127] hover:bg-[#d9361c] text-white font-semibold rounded-xl transition-all text-lg min-h-[56px] w-full sm:w-auto shadow-lg">
+   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+        class="w-7 h-7 sm:w-6 sm:h-6"
+        alt="WhatsApp">
+   Agendar Revisão Preventiva
+</a>
+        
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-5 h-5" alt="WhatsApp">
           WhatsApp
         </a>
       </div>
@@ -197,9 +202,12 @@
             Faça a manutenção preventiva no câmbio automático do seu veículo e economize com gastos desnecessários.
           </p>
           <div class="flex flex-col sm:flex-row gap-5 pt-4 justify-center md:justify-start">
-<a id="btn-revisao" href="https://wa.me/5563999592030?text=Olá!%20Quero%20agendar%20uma%20revisão%20preventiva" target="_blank" class="inline-flex items-center...              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-7 h-7 sm:w-6 sm:h-6" alt="WhatsApp">
-              Agendar Revisão Preventiva
-            </a>
+<a id="btn-revisao-nav"
+   href="https://wa.me/5563999592030?text=Olá!%20Quero%20agendar%20uma%20revisão%20preventiva"
+   target="_blank"
+   class="inline-flex items-center justify-center bg-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-700 transition">
+   Agendar Revisão
+</a>
             <a href="#services" class="inline-flex items-center justify-center gap-3 px-8 py-4 border border-white/50 hover:bg-white/10 backdrop-blur-sm text-white font-semibold rounded-xl transition-all text-lg min-h-[56px] w-full sm:w-auto">
               Ver Serviços
             </a>
@@ -677,34 +685,24 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+function dispararConversao(url) {
+  gtag('event', 'conversion', {
+    'send_to': 'AW-10973297673/FW6WCLfd3YEcEIn4vPAo',
+    'event_callback': function () {
+      window.open(url, '_blank');
+    }
+  });
+}
 
-  const botaoRevisao = document.getElementById("btn-revisao");
+document.getElementById('btn-revisao-hero').addEventListener('click', function(e) {
+  e.preventDefault();
+  dispararConversao(this.href);
+});
 
-  if (botaoRevisao) {
-
-    botaoRevisao.addEventListener("click", function (e) {
-
-      e.preventDefault();
-
-      gtag('event', 'conversion', {
-        'send_to': 'AW-10973297673/FW6WCLfd3YEcEIn4vPAo',
-        'event_callback': function() {
-          window.open(botaoRevisao.href, '_blank');
-        }
-      });
-
-      // fallback caso o callback falhe
-      setTimeout(function() {
-        window.open(botaoRevisao.href, '_blank');
-      }, 800);
-
-    });
-
-  }
-
+document.getElementById('btn-revisao-nav').addEventListener('click', function(e) {
+  e.preventDefault();
+  dispararConversao(this.href);
 });
 </script>
 
