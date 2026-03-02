@@ -673,23 +673,38 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
   const botaoRevisao = document.getElementById("btn-revisao");
 
   if (botaoRevisao) {
-    botaoRevisao.addEventListener("click", function () {
+
+    botaoRevisao.addEventListener("click", function (e) {
+
+      e.preventDefault();
 
       gtag('event', 'conversion', {
-        'send_to': 'AW-10973297673/FW6WCLfd3YEcEIn4vPAo'
+        'send_to': 'AW-10973297673/FW6WCLfd3YEcEIn4vPAo',
+        'event_callback': function() {
+          window.open(botaoRevisao.href, '_blank');
+        }
       });
 
+      // fallback caso o callback falhe
+      setTimeout(function() {
+        window.open(botaoRevisao.href, '_blank');
+      }, 800);
+
     });
+
   }
 
 });
 </script>
+
+  
   
 </body>
 </html>
