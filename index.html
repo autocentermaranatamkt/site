@@ -193,8 +193,7 @@
             Faça a manutenção preventiva no câmbio automático do seu veículo e economize com gastos desnecessários.
           </p>
           <div class="flex flex-col sm:flex-row gap-5 pt-4 justify-center md:justify-start">
-            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20agendar%20uma%20revisão%20preventiva" target="_blank" class="inline-flex items-center justify-center gap-3 px-7 py-4 bg-[#f04127] hover:bg-[#d32e1e] text-white font-bold rounded-xl shadow-xl transition-all text-base sm:text-lg min-h-[56px] w-full sm:w-auto">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-7 h-7 sm:w-6 sm:h-6" alt="WhatsApp">
+<a id="btn-revisao" href="https://wa.me/5563999592030?text=Olá!%20Quero%20agendar%20uma%20revisão%20preventiva" target="_blank" class="inline-flex items-center...              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-7 h-7 sm:w-6 sm:h-6" alt="WhatsApp">
               Agendar Revisão Preventiva
             </a>
             <a href="#services" class="inline-flex items-center justify-center gap-3 px-8 py-4 border border-white/50 hover:bg-white/10 backdrop-blur-sm text-white font-semibold rounded-xl transition-all text-lg min-h-[56px] w-full sm:w-auto">
@@ -670,6 +669,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
   });
+
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const botaoRevisao = document.getElementById("btn-revisao");
+
+  if (botaoRevisao) {
+    botaoRevisao.addEventListener("click", function () {
+
+      gtag('event', 'conversion', {
+        'send_to': 'AW-10973297673/FW6WCLfd3YEcEIn4vPAo'
+      });
+
+    });
+  }
 
 });
 </script>
