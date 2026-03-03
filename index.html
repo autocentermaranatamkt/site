@@ -704,7 +704,28 @@ document.getElementById('btn-revisao-nav').addEventListener('click', function(e)
 });
 </script>
 
-  
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+  const btnHero = document.getElementById("btn-revisao-hero");
+  const btnNav = document.getElementById("btn-revisao-nav");
+
+  function dispararConversao() {
+    gtag('event', 'conversion', {
+      'send_to': 'AW-10973297673/FW6WCLfd3YEcEIn4vPAo'
+    });
+  }
+
+  if (btnHero) {
+    btnHero.addEventListener("click", dispararConversao);
+  }
+
+  if (btnNav) {
+    btnNav.addEventListener("click", dispararConversao);
+  }
+
+});
+</script>  
   
 </body>
 </html>
