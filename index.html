@@ -657,24 +657,6 @@
     }
   </script>
   
-  <script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  const whatsappLinks = document.querySelectorAll("a[href*='wa.me']");
-
-  whatsappLinks.forEach(function(link) {
-    link.addEventListener("click", function() {
-
-      gtag('event', 'conversion', {
-        'send_to': 'AW-10973297673/j1M5CNCf3YEcEIn4vPAo'
-      });
-
-    });
-  });
-
-});
-</script>
-
 <script>
 function dispararConversao(url) {
   gtag('event', 'conversion', {
@@ -683,41 +665,28 @@ function dispararConversao(url) {
       window.open(url, '_blank');
     }
   });
+  return false;
 }
 
-document.getElementById('btn-revisao-hero').addEventListener('click', function(e) {
-  e.preventDefault();
-  dispararConversao(this.href);
-});
-
-document.getElementById('btn-revisao-nav').addEventListener('click', function(e) {
-  e.preventDefault();
-  dispararConversao(this.href);
-});
-</script>
-
-<script>
 document.addEventListener("DOMContentLoaded", function() {
-
   const btnHero = document.getElementById("btn-revisao-hero");
   const btnNav = document.getElementById("btn-revisao-nav");
 
-  function dispararConversao() {
-    gtag('event', 'conversion', {
-      'send_to': 'AW-10973297673/FW6WCLfd3YEcEIn4vPAo'
+  if (btnHero) {
+    btnHero.addEventListener("click", function(e) {
+      e.preventDefault();
+      dispararConversao(this.href);
     });
   }
 
-  if (btnHero) {
-    btnHero.addEventListener("click", dispararConversao);
-  }
-
   if (btnNav) {
-    btnNav.addEventListener("click", dispararConversao);
+    btnNav.addEventListener("click", function(e) {
+      e.preventDefault();
+      dispararConversao(this.href);
+    });
   }
-
 });
-</script>  
+</script>
   
 </body>
 </html>
