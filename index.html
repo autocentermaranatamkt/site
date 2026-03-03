@@ -608,7 +608,7 @@
       document.querySelectorAll('.more-services').forEach(el => el.classList.remove('hidden'));
       this.style.display = 'none';
     });
-    // Cookie banner – TOTALMENTE SILENCIOSO (sem nenhum console.warn)
+    // Cookie banner – TOTALMENTE SILENCIOSO
     const banner = document.getElementById('cookie-banner');
     const acceptBtn = document.getElementById('accept-cookies');
     function showBanner() {
@@ -620,9 +620,7 @@
     let cookiesAccepted = false;
     try {
       cookiesAccepted = localStorage.getItem('cookiesAccepted') === 'true';
-    } catch (e) {
-      // Ambiente sem localStorage (sandbox/file://) - não faz nada
-    }
+    } catch (e) {}
     if (!cookiesAccepted) {
       showBanner();
     }
@@ -630,95 +628,104 @@
       acceptBtn.addEventListener('click', function() {
         try {
           localStorage.setItem('cookiesAccepted', 'true');
-        } catch (e) {
-          // Silêncio total - nenhum console.warn
-        }
+        } catch (e) {}
         hideBanner();
       });
     }
   </script>
- 
-<script>
-// Função genérica para disparar conversão e abrir WhatsApp/Instagram
-function trackConversionAndOpen(label, url) {
-  if (label) {
+
+  <script>
+  // Função corrigida para disparar conversão com fallback e debug
+  function trackConversion(label, url) {
+    if (!label) {
+      window.open(url, '_blank');
+      return;
+    }
+
+    const sendTo = 'AW-10973297673/' + label;
+    let conversionFired = false;
+
     gtag('event', 'conversion', {
-      'send_to': 'AW-10973297673/' + label,
-      'event_callback': function() {
+      'send_to': sendTo,
+      'event_callback': function () {
+        conversionFired = true;
+        window.open(url, '_blank');
+      },
+      'event_timeout': 1200
+    });
+
+    // Fallback de segurança (caso o callback não dispare)
+    setTimeout(function() {
+      if (!conversionFired) {
         window.open(url, '_blank');
       }
-    });
-  } else {
-    // Caso não tenha label (fallback)
-    window.open(url, '_blank');
-  }
-  return false; // Evita navegação padrão
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-  // Botão principal "Agendar Revisão Preventiva" (Hero) → FW6WCLfd3YEcEIn4vPAo
-  const btnHero = document.getElementById("btn-revisao-hero");
-  if (btnHero) {
-    btnHero.addEventListener("click", function(e) {
-      e.preventDefault();
-      trackConversionAndOpen("FW6WCLfd3YEcEIn4vPAo", this.href);
-    });
+    }, 1200);
   }
 
-  // Botão do Navbar → label geral de WhatsApp (j1M5CNCf3YEcEIn4vPAo)
-  const btnNav = document.getElementById("btn-revisao-nav");
-  if (btnNav) {
-    btnNav.addEventListener("click", function(e) {
-      e.preventDefault();
-      trackConversionAndOpen("j1M5CNCf3YEcEIn4vPAo", this.href);
+  document.addEventListener("DOMContentLoaded", function() {
+    // Botão Agendar Revisão (Hero) - label específico
+    const btnHero = document.getElementById("btn-revisao-hero");
+    if (btnHero) {
+      btnHero.addEventListener("click", function(e) {
+        e.preventDefault();
+        trackConversion("FW6WCLfd3YEcEIn4vPAo", this.href);
+      });
+    }
+
+    // Botão Navbar - label geral de WhatsApp
+    const btnNav = document.getElementById("btn-revisao-nav");
+    if (btnNav) {
+      btnNav.addEventListener("click", function(e) {
+        e.preventDefault();
+        trackConversion("j1M5CNCf3YEcEIn4vPAo", this.href);
+      });
+    }
+
+    // Botão Instagram
+    const btnInstagram = document.querySelector('#instagram a[href*="instagram.com"]');
+    if (btnInstagram) {
+      btnInstagram.addEventListener("click", function(e) {
+        e.preventDefault();
+        trackConversion("001yCK-w5YEcEIn4vPAo", this.href);
+      });
+    }
+
+    // Botões "Saiba mais" dos serviços - cada um com seu label
+    const serviceLinks = document.querySelectorAll('#services a[href*="wa.me"]');
+    serviceLinks.forEach(function(link) {
+      const texto = link.textContent.trim().toLowerCase();
+      let label = null;
+
+      if (texto.includes('programação')) label = 'RVSzCN2274EcEIn4vPAo';
+      else if (texto.includes('fluido')) label = 'xy9TCKua3YEcEIn4vPAo';
+      else if (texto.includes('elétrico') || texto.includes('eletricoc')) label = 's8F8COy03YEcEIn4vPAo';
+      else if (texto.includes('preventiva') || texto.includes('corretiva')) label = 'A19FCKGB8IEcEIn4vPAo';
+      else if (texto.includes('reparo em transmissão automática')) label = 'yjyOCK-IjIIcEIn4vPAo';
+      else if (texto.includes('troca de óleo')) label = 'qv8KCMaqk4IcEIn4vPAo';
+      else if (texto.includes('venda de peças')) label = '57EFCMmzk4IcEIn4vPAo';
+      else if (texto.includes('freios')) label = 'H1rQCM6-k4IcEIn4vPAo';
+      else if (texto.includes('manutenções em geral')) label = 'wcsDCO-2jIIcEIn4vPAo';
+      else if (texto.includes('alinhamento')) label = 'aXwQCK7Ik4IcEIn4vPAo';
+      else if (texto.includes('venda de pneus')) label = 'A-qeCJfKjIIcEIn4vPAo';
+      else if (texto.includes('injeção')) label = 'TLu6CJzgk4IcEIn4vPAo';
+      else if (texto.includes('ângulo de direção') || texto.includes('direção')) label = 'XjRDCNDcjIIcEIn4vPAo';
+
+      link.addEventListener("click", function(e) {
+        e.preventDefault();
+        trackConversion(label, this.href);
+      });
     });
-  }
 
-  // Botão "Seguir no Instagram" → 001yCK-w5YEcEIn4vPAo
-  const btnInstagram = document.querySelector('#instagram a[href*="instagram.com"]');
-  if (btnInstagram) {
-    btnInstagram.addEventListener("click", function(e) {
-      e.preventDefault();
-      trackConversionAndOpen("001yCK-w5YEcEIn4vPAo", this.href);
-    });
-  }
-
-  // Todos os botões "Saiba mais" da área de serviços (cada um com seu label específico)
-  const saibaMaisButtons = document.querySelectorAll('#services a[href*="wa.me"]');
-  saibaMaisButtons.forEach(btn => {
-    const text = btn.textContent.trim().toLowerCase();
-    let label = null;
-
-    if (text.includes("programação"))          label = "RVSzCN2274EcEIn4vPAo";
-    else if (text.includes("fluido"))          label = "xy9TCKua3YEcEIn4vPAo";
-    else if (text.includes("elétrico") || text.includes("eletricoc")) label = "s8F8COy03YEcEIn4vPAo";
-    else if (text.includes("preventiva") || text.includes("corretiva")) label = "A19FCKGB8IEcEIn4vPAo";
-    else if (text.includes("reparo em transmissão automática")) label = "yjyOCK-IjIIcEIn4vPAo";
-    else if (text.includes("troca de óleo"))   label = "qv8KCMaqk4IcEIn4vPAo";
-    else if (text.includes("venda de peças"))  label = "57EFCMmzk4IcEIn4vPAo";
-    else if (text.includes("freios"))          label = "H1rQCM6-k4IcEIn4vPAo";
-    else if (text.includes("manutenções em geral")) label = "wcsDCO-2jIIcEIn4vPAo";
-    else if (text.includes("alinhamento"))     label = "aXwQCK7Ik4IcEIn4vPAo";
-    else if (text.includes("venda de pneus"))  label = "A-qeCJfKjIIcEIn4vPAo";
-    else if (text.includes("injeção"))         label = "TLu6CJzgk4IcEIn4vPAo";
-    else if (text.includes("ângulo de direção") || text.includes("direção")) label = "XjRDCNDcjIIcEIn4vPAo";
-
-    btn.addEventListener("click", function(e) {
-      e.preventDefault();
-      trackConversionAndOpen(label, this.href);
+    // Todos os OUTROS links de WhatsApp (flutuante, contato, etc.) → label geral
+    const outrosWhats = document.querySelectorAll('a[href*="wa.me"]:not(#btn-revisao-hero):not(#btn-revisao-nav):not(#services a)');
+    outrosWhats.forEach(function(link) {
+      link.addEventListener("click", function(e) {
+        e.preventDefault();
+        trackConversion("j1M5CNCf3YEcEIn4vPAo", this.href);
+      });
     });
   });
-
-  // Todos os OUTROS links de WhatsApp (flutuante, seção contato, etc.) → label geral j1M5CNCf3YEcEIn4vPAo
-  const allOtherWhatsApp = document.querySelectorAll('a[href*="wa.me"]:not(#btn-revisao-hero):not(#btn-revisao-nav):not(#services a)');
-  allOtherWhatsApp.forEach(link => {
-    link.addEventListener("click", function(e) {
-      e.preventDefault();
-      trackConversionAndOpen("j1M5CNCf3YEcEIn4vPAo", this.href);
-    });
-  });
-});
-</script>
+  </script>
  
 </body>
 </html>
