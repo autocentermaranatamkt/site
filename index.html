@@ -161,6 +161,7 @@
 <a id="btn-revisao-nav"
    href="https://wa.me/5563999592030?text=Olá!%20Gostaria%20de%20um%20orçamento"
    target="_blank"
+   onclick="return gtag_report_conversion(this.href, 'j1M5CNCf3YEcEIn4vPAo');"
    class="inline-flex items-center gap-2 px-6 h-10 bg-[#f04127] hover:bg-[#d32e1e] text-white font-bold rounded-full shadow-lg shadow-[#f04127]/30 transition">
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-5 h-5" alt="WhatsApp">
   WhatsApp
@@ -200,6 +201,7 @@
 <a id="btn-revisao-hero"
    href="https://wa.me/5563999592030?text=Olá!%20Quero%20agendar%20uma%20revisão%20preventiva"
    target="_blank"
+   onclick="return gtag_report_conversion(this.href, 'FW6WCLfd3YEcEIn4vPAo');"
    class="inline-flex items-center justify-center gap-3 px-7 py-4 bg-[#f04127] hover:bg-[#d32e1e] text-white font-bold rounded-xl shadow-xl transition-all text-base sm:text-lg min-h-[56px] w-full sm:w-auto">
   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-7 h-7 sm:w-6 sm:h-6" alt="WhatsApp">
   Agendar Revisão Preventiva
@@ -281,7 +283,10 @@
           <div class="p-6 md:p-8 flex flex-col flex-grow">
             <h3 class="text-lg md:text-xl font-bold text-[#111830] mb-3">Programação em Transmissão</h3>
             <p class="text-gray-700 text-sm mb-6 flex-grow line-clamp-4">Atualização e programação avançada de módulos de transmissão para otimizar desempenho e corrigir falhas eletrônicas.</p>
-            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20programação%20em%20transmissão" target="_blank" class="mt-auto w-full py-3 bg-[#f04127]/10 hover:bg-[#f04127]/20 text-[#f04127] font-medium rounded-lg transition text-center">Saiba mais</a>
+            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20programação%20em%20transmissão"
+   target="_blank"
+   onclick="return gtag_report_conversion(this.href, 'RVSzCN2274EcEIn4vPAo');"
+   class="mt-auto w-full py-3 bg-[#f04127]/10 hover:bg-[#f04127]/20 text-[#f04127] font-medium rounded-lg transition text-center">Saiba mais</a>
           </div>
         </div>
         <div class="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#f04127]/60 transition-all hover:shadow-[0_10px_25px_-5px_rgba(240,65,39,0.15)] service-card flex flex-col">
@@ -556,10 +561,14 @@
         </div>
       </div>
       <div class="text-center mt-10 md:mt-12">
-        <a href="https://www.instagram.com/autocentermaranata/" target="_blank" class="inline-flex items-center justify-center gap-3 px-8 py-4 md:px-10 md:py-5 bg-[#f04127] hover:bg-[#d32e1e] text-white font-bold rounded-xl shadow-xl transition-all text-lg md:text-xl min-h-[56px] md:min-h-[64px]">
-          <i class="fab fa-instagram text-2xl"></i>
-          Seguir no Instagram
-        </a>
+<a href="https://www.instagram.com/autocentermaranata/" 
+   target="_blank" 
+   onclick="return gtag_report_conversion(this.href, '001yCK-w5YEcEIn4vPAo');"
+   class="inline-flex items-center justify-center gap-3 px-8 py-4 md:px-10 md:py-5 bg-[#f04127] hover:bg-[#d32e1e] text-white font-bold rounded-xl shadow-xl transition-all text-lg md:text-xl min-h-[56px] md:min-h-[64px]">
+  
+  <i class="fab fa-instagram text-2xl"></i>
+  Seguir no Instagram
+</a>
       </div>
     </div>
   </section>
@@ -692,6 +701,20 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 });
+</script>
+  
+  <script>
+function gtag_report_conversion(url, conversion_id) {
+  gtag('event', 'conversion', {
+    'send_to': 'AW-10973297673/' + conversion_id,
+    'event_callback': function () {
+      if (typeof(url) != 'undefined') {
+        window.location = url;
+      }
+    }
+  });
+  return false;
+}
 </script>
   
 </body>
