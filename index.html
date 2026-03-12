@@ -9,7 +9,6 @@
   gtag('js', new Date());
   gtag('config', 'AW-342102806');
 
-  // Função de relatório de conversão (modelo que funcionou)
   function gtag_report_conversion(url, label) {
     var callback = function () {
       if (typeof(url) != 'undefined') {
@@ -25,64 +24,46 @@
 </script>
 
   <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Auto Center Maranata – Especialistas em Câmbio Automático</title>
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="/favicon.png" />
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
-  <!-- Tailwind CSS CDN -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Silencia COMPLETAMENTE o aviso de produção do Tailwind CDN -->
   <script>
     (function() {
       const originalConsoleWarn = console.warn;
       console.warn = function(...args) {
-        // Ignora qualquer mensagem que contenha 'cdn.tailwindcss.com'
-        if (args[0] && typeof args[0] === 'string' && args[0].toLowerCase().includes('cdn.tailwindcss.com')) {
-          return;
-        }
+        if (args[0] && typeof args[0] === 'string' && args[0].toLowerCase().includes('cdn.tailwindcss.com')) return;
         originalConsoleWarn.apply(console, args);
       };
     })();
   </script>
-
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            background: '#FFFFFF',
-            foreground: '#111830',
             primary: '#f04127',
-            card: '#FFFFFF',
-            muted: '#e5e7eb',
-            'muted-foreground': '#6b7280',
-            border: '#e2e8f0',
-            'dark-blue': '#111830',
+            dark: '#0a0f1e',
+            'dark-card': '#111828',
+            'dark-border': '#1e2a3a',
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
             display: ['Outfit', 'system-ui', 'sans-serif'],
           },
-          boxShadow: {
-            'primary-glow': '0 10px 25px -5px rgba(240, 65, 39, 0.25)',
-          },
           animation: {
             marquee: 'marquee 40s linear infinite',
+            'fade-up': 'fadeUp 0.6s ease forwards',
+            'pulse-slow': 'pulse 3s ease-in-out infinite',
           },
           keyframes: {
-            marquee: {
-              '0%': { transform: 'translateX(0)' },
-              '100%': { transform: 'translateX(-50%)' }
-            }
+            marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+            fadeUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
           }
         }
       }
@@ -90,131 +71,281 @@
   </script>
 
   <style>
+    * { box-sizing: border-box; }
     body {
-      @apply bg-background text-foreground;
-      font-family: var(--font-sans);
+      font-family: 'Inter', sans-serif;
+      background: #0a0f1e;
+      color: #e2e8f0;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
-    h1, h2, h3, h4, h5, h6 {
-      font-family: var(--font-display);
-      letter-spacing: -0.025em;
+    h1,h2,h3,h4,h5,h6 { font-family: 'Outfit', sans-serif; letter-spacing: -0.02em; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0a0f1e; }
+    ::-webkit-scrollbar-thumb { background: #f04127; border-radius: 4px; }
+
+    /* Noise texture overlay */
+    .noise::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
     }
-    ::-webkit-scrollbar { width: 10px; }
-    ::-webkit-scrollbar-track { background: #111830; }
-    ::-webkit-scrollbar-thumb { background: #f04127; border-radius: 5px; }
+
+    /* Glow effects */
+    .glow-red { box-shadow: 0 0 40px rgba(240, 65, 39, 0.3), 0 0 80px rgba(240, 65, 39, 0.1); }
+    .glow-red-sm { box-shadow: 0 0 20px rgba(240, 65, 39, 0.2); }
+    .text-glow { text-shadow: 0 0 40px rgba(240, 65, 39, 0.5); }
+
+    /* Grid pattern background */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(240, 65, 39, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(240, 65, 39, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Radial gradient hero */
+    .hero-gradient {
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(240,65,39,0.18) 0%, transparent 60%),
+                  radial-gradient(ellipse 50% 40% at 80% 50%, rgba(240,65,39,0.08) 0%, transparent 50%),
+                  #0a0f1e;
+    }
+
+    /* Animated border */
+    .border-animated {
+      position: relative;
+      border: 1px solid transparent;
+      background: linear-gradient(#111828, #111828) padding-box,
+                  linear-gradient(135deg, rgba(240,65,39,0.5), transparent 50%, rgba(240,65,39,0.2)) border-box;
+    }
+
+    /* Card hover */
     .service-card {
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: linear-gradient(135deg, #111828 0%, #0d1420 100%);
+      border: 1px solid #1e2a3a;
     }
     .service-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--primary-glow);
-      border-color: rgba(240,65,39,0.5);
+      transform: translateY(-6px);
+      border-color: rgba(240,65,39,0.4);
+      box-shadow: 0 20px 40px -10px rgba(240,65,39,0.2), 0 0 0 1px rgba(240,65,39,0.1);
     }
-    details summary {
-      list-style: none;
-      cursor: pointer;
+
+    /* Number counter style */
+    .stat-number {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 30%, #f04127 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    details summary::-webkit-details-marker {
-      display: none;
+
+    /* FAQ */
+    details summary { list-style: none; cursor: pointer; }
+    details summary::-webkit-details-marker { display: none; }
+    details[open] summary svg.chevron { transform: rotate(180deg); }
+    details { transition: all 0.3s ease; }
+
+    /* Testimonial card */
+    .testimonial-card {
+      background: linear-gradient(135deg, #111828 0%, #0d1420 100%);
+      border: 1px solid #1e2a3a;
+      transition: all 0.4s ease;
     }
-    details[open] summary svg {
-      transform: rotate(180deg);
+    .testimonial-card:hover {
+      border-color: rgba(240,65,39,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
     }
+
+    /* Section label */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(240,65,39,0.1);
+      border: 1px solid rgba(240,65,39,0.25);
+      color: #f04127;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Divider line */
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, #f04127, transparent);
+      border-radius: 2px;
+    }
+
+    /* Nav blur */
+    .nav-blur {
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+    }
+
+    /* WhatsApp float */
+    .wa-float {
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      box-shadow: 0 8px 32px rgba(37,211,102,0.4);
+      transition: all 0.3s ease;
+    }
+    .wa-float:hover {
+      transform: scale(1.1) translateY(-2px);
+      box-shadow: 0 12px 40px rgba(37,211,102,0.5);
+    }
+
+    /* Marquee */
+    .animate-marquee { display: flex; animation: marquee 40s linear infinite; }
+
+    /* Button primary */
+    .btn-primary {
+      background: linear-gradient(135deg, #f04127 0%, #c8321e 100%);
+      box-shadow: 0 4px 20px rgba(240,65,39,0.35);
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(240,65,39,0.5);
+      background: linear-gradient(135deg, #f55 0%, #f04127 100%);
+    }
+
+    /* Hero stat card */
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 20px 24px;
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      background: rgba(240,65,39,0.08);
+      border-color: rgba(240,65,39,0.2);
+    }
+
+    /* Icon box */
+    .icon-box {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(240,65,39,0.15) 0%, rgba(240,65,39,0.05) 100%);
+      border: 1px solid rgba(240,65,39,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .service-card:hover .icon-box {
+      background: linear-gradient(135deg, rgba(240,65,39,0.25) 0%, rgba(240,65,39,0.1) 100%);
+      border-color: rgba(240,65,39,0.4);
+    }
+
+    /* Cookie banner */
     #cookie-banner {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       z-index: 9999;
-      background: #111830;
+      background: rgba(10, 15, 30, 0.97);
+      border-top: 1px solid rgba(240,65,39,0.2);
+      backdrop-filter: blur(20px);
       color: white;
       padding: 1rem 1.5rem;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
       display: none;
       flex-direction: column;
       gap: 1rem;
       text-align: center;
     }
     #cookie-banner button {
-      background: #f04127;
+      background: linear-gradient(135deg, #f04127, #c8321e);
       color: white;
       border: none;
-      padding: 0.8rem 1.8rem;
+      padding: 0.75rem 2rem;
       border-radius: 999px;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
       white-space: nowrap;
+      transition: all 0.3s ease;
     }
+    #cookie-banner button:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(240,65,39,0.4); }
     @media (min-width: 640px) {
-      #cookie-banner {
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-      }
-      .container {
-  @apply max-w-full; /* força o container a não ter largura fixa excessiva em zoom */
-}
+      #cookie-banner { flex-direction: row; justify-content: center; align-items: center; gap: 2rem; }
+    }
 
-@media (min-width: 640px) {
-  .container {
-    max-width: 100vw !important; /* evita que quebre em zoom <100% */
-  }
-}
+    /* Accent line on section title */
+    .title-accent {
+      position: relative;
+      display: inline-block;
+    }
+    .title-accent::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #f04127, transparent);
+      border-radius: 2px;
+    }
 
+    /* Progress bar animation */
+    @keyframes slideIn { from { width: 0; } to { width: var(--w); } }
+
+    /* Mobile nav */
+    #nav-menu.mobile-open {
+      display: flex !important;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      background: rgba(10,15,30,0.98);
+      border-bottom: 1px solid rgba(240,65,39,0.2);
+      padding: 1.5rem;
+      gap: 1rem;
+      backdrop-filter: blur(20px);
+    }
   </style>
 </head>
-<body class="min-h-screen min-w-screen overflow-x-hidden antialiased">
+<body>
 
-
-  <body class="min-h-screen min-w-screen antialiased">
-
-  <!-- Logo no topo (a mesma do navbar) -->
-  <div class="w-full bg-[#111830] py-4 flex justify-center items-center border-b border-[#2c3e50] md:hidden">
-    <a href="/" class="flex items-center gap-3">
-      <img 
-        src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/4-photoroom.png?allow_lossy=1" 
-        alt="Auto Center Maranata" 
-        class="h-14 md:h-16 w-auto object-contain"
-      >
-      <div class="flex flex-col leading-none">
-        <span class="font-display font-bold text-xl md:text-2xl text-white">AUTO CENTER</span>
-        <span class="text-xs md:text-sm font-semibold text-[#f04127] tracking-widest uppercase">MARANATA</span>
-      </div>
-    </a>
-  </div>
-
-  
   <!-- NAVBAR -->
-  <nav class="fixed top-0 inset-x-0 z-[100] border-b bg-[#111830]/95 backdrop-blur-md border-[#2c3e50] shadow-lg py-3 transition-all">
-    <div class="container mx-auto px-4 md:px-6 flex items-center justify-between">
+  <nav id="navbar" class="fixed top-0 inset-x-0 z-[100] border-b border-white/5 nav-blur transition-all duration-500" style="background: rgba(10,15,30,0.85);">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between h-18 py-3">
       <a href="/" class="flex items-center gap-3 group">
-        <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/4-photoroom.png?allow_lossy=1" alt="Auto Center Maranata" class="h-10 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-300">
-        <div class="flex flex-col leading-none hidden md:flex">
-          <span class="font-display font-bold text-xl text-white">AUTO CENTER</span>
-          <span class="text-xs font-semibold text-[#f04127] tracking-widest uppercase">MARANATA</span>
+        <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/4-photoroom.png?allow_lossy=1" alt="Auto Center Maranata" class="h-11 w-auto object-contain transition-all duration-300 group-hover:scale-105">
+        <div class="flex flex-col leading-none">
+          <span class="font-display font-bold text-xl text-white tracking-tight">AUTO CENTER</span>
+          <span class="text-[10px] font-bold text-[#f04127] tracking-[0.2em] uppercase">MARANATA</span>
         </div>
       </a>
-      <div id="nav-menu" class="hidden md:flex items-center gap-8 flex-col md:flex-row">
-        <a href="#hero" class="text-sm font-medium text-gray-300 hover:text-white transition uppercase tracking-wide">Início</a>
-        <a href="#about" class="text-sm font-medium text-gray-300 hover:text-white transition uppercase tracking-wide">Sobre</a>
-        <a href="#services" class="text-sm font-medium text-gray-300 hover:text-white transition uppercase tracking-wide">Serviços</a>
-        <a href="#brands" class="text-sm font-medium text-gray-300 hover:text-white transition uppercase tracking-wide">Marcas</a>
-        <a href="#testimonials" class="text-sm font-medium text-gray-300 hover:text-white transition uppercase tracking-wide">Depoimentos</a>
-        <a href="#faq" class="text-sm font-medium text-gray-300 hover:text-white transition uppercase tracking-wide">FAQ</a>
-        <a href="#contact" class="text-sm font-medium text-gray-300 hover:text-white transition uppercase tracking-wide">Contato</a>
-        <a id="btn-revisao-nav"
-           href="https://wa.me/5563999592030?text=Olá!%20Gostaria%20de%20um%20orçamento"
+      <div id="nav-menu" class="hidden md:flex items-center gap-6">
+        <a href="#hero" class="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">Início</a>
+        <a href="#about" class="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">Sobre</a>
+        <a href="#services" class="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">Serviços</a>
+        <a href="#brands" class="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">Marcas</a>
+        <a href="#testimonials" class="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">Depoimentos</a>
+        <a href="#faq" class="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">FAQ</a>
+        <a href="#contact" class="text-xs font-semibold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">Contato</a>
+        <a href="https://wa.me/5563999592030?text=Olá!%20Gostaria%20de%20um%20orçamento"
            target="_blank"
            onclick="return gtag_report_conversion(this.href, 'LKU8COGHqIIcEJamkKMB');"
-           class="inline-flex items-center gap-2 px-6 h-10 bg-[#f04127] hover:bg-[#d32e1e] text-white font-bold rounded-full shadow-lg shadow-[#f04127]/30 transition">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-5 h-5" alt="WhatsApp">
+           class="btn-primary inline-flex items-center gap-2 px-5 py-2.5 text-white font-bold rounded-xl text-sm">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-4 h-4" alt="">
           WhatsApp
         </a>
       </div>
-      <button id="menu-toggle" class="md:hidden p-2 text-white focus:outline-none">
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+      <button id="menu-toggle" class="md:hidden p-2 text-white">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
@@ -222,268 +353,549 @@
   </nav>
 
   <!-- HERO -->
-  <section id="hero" class="relative pt-28 md:pt-0 overflow-hidden bg-[#111830] md:min-h-screen">
-    <div class="relative w-full md:h-screen">
-      <div class="relative w-full md:absolute md:inset-0">
-        <picture>
-          <source media="(max-width: 768px)" srcset="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/sem-nome-1080-x-1080-px.png">
-          <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/design-sem-nome-13.png" alt="Carro premium em oficina" class="w-full h-auto md:w-full md:h-full object-cover md:object-center brightness-[0.85]" loading="eager">
-        </picture>
-      </div>
-      <div class="absolute inset-0 z-5 hidden md:block bg-gradient-to-b from-transparent via-transparent to-black/40"></div>
-<div class="relative z-10 w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 md:absolute md:inset-0 md:flex md:items-center">
-  <div class="max-w-3xl space-y-6 md:space-y-9 w-full text-center md:text-left drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
- 
-      <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white text-sm font-medium mx-auto md:mx-0">
-            PEÇAS E SERVIÇOS AUTOMOTIVOS
+  <section id="hero" class="relative min-h-screen flex items-center overflow-hidden hero-gradient grid-bg noise">
+    <!-- Decorative elements -->
+    <div class="absolute top-1/4 right-0 w-96 h-96 bg-[#f04127] rounded-full opacity-5 blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-1/4 left-0 w-64 h-64 bg-[#f04127] rounded-full opacity-5 blur-3xl pointer-events-none"></div>
+
+    <!-- Diagonal accent -->
+    <div class="absolute top-0 right-0 w-1/2 h-full pointer-events-none overflow-hidden hidden lg:block">
+      <div style="position:absolute; top:0; right:0; width:100%; height:100%; background: linear-gradient(135deg, transparent 40%, rgba(240,65,39,0.04) 100%);"></div>
+      <picture>
+        <source media="(max-width: 768px)" srcset="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/sem-nome-1080-x-1080-px.png">
+        <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/design-sem-nome-13.png"
+             alt="Carro premium"
+             class="absolute inset-0 w-full h-full object-cover object-center opacity-30"
+             loading="eager">
+      </picture>
+      <div style="position:absolute; inset:0; background: linear-gradient(to right, #0a0f1e 0%, rgba(10,15,30,0.6) 40%, transparent 100%);"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 md:px-8 pt-28 pb-20 md:py-0">
+      <div class="max-w-2xl space-y-8">
+
+        <!-- Badge -->
+        <div class="section-label w-fit">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#f04127] animate-pulse-slow"></span>
+          Especialistas em Câmbio Automático · Palmas-TO
+        </div>
+
+        <!-- Heading -->
+        <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight">
+          Oficina<br>
+          <span class="text-[#f04127] text-glow">Especializada</span><br>
+          em Câmbio<br>Automático
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-gray-300 text-lg md:text-xl leading-relaxed max-w-lg">
+          Faça a manutenção preventiva no câmbio automático do seu veículo e economize com gastos desnecessários.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row gap-4 pt-2">
+          <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20agendar%20uma%20revisão%20preventiva"
+             target="_blank"
+             onclick="return gtag_report_conversion(this.href, 'gsCQCI-2qIIcEJamkKMB');"
+             class="btn-primary inline-flex items-center justify-center gap-3 px-8 py-4 text-white font-bold rounded-2xl text-base sm:text-lg">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-6 h-6" alt="">
+            Agendar Revisão Preventiva
+          </a>
+          <a href="#services"
+             class="inline-flex items-center justify-center gap-2 px-8 py-4 border border-white/15 hover:border-white/30 hover:bg-white/5 text-white font-semibold rounded-2xl transition-all text-base sm:text-lg backdrop-blur-sm">
+            Ver Serviços
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </a>
+        </div>
+
+        <!-- Stats row -->
+        <div class="grid grid-cols-3 gap-3 pt-4">
+          <div class="stat-card text-center">
+            <div class="stat-number text-3xl md:text-4xl">+15</div>
+            <div class="text-gray-400 text-xs mt-1 font-medium">Anos de<br>Experiência</div>
           </div>
-          <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-white tracking-tight">
-            Oficina Especializada em <span class="text-[#f04127]">Câmbio Automático</span>
-          </h1>
-          <p class="text-base sm:text-lg md:text-xl text-gray-100 max-w-xl leading-relaxed mx-auto md:mx-0">
-            Faça a manutenção preventiva no câmbio automático do seu veículo e economize com gastos desnecessários.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-5 pt-4 justify-center md:justify-start">
-            <a id="btn-revisao-hero"
-               href="https://wa.me/5563999592030?text=Olá!%20Quero%20agendar%20uma%20revisão%20preventiva"
-               target="_blank"
-               onclick="return gtag_report_conversion(this.href, 'gsCQCI-2qIIcEJamkKMB');"
-               class="inline-flex items-center justify-center gap-3 px-7 py-4 bg-[#f04127] hover:bg-[#d32e1e] text-white font-bold rounded-xl shadow-xl transition-all text-base sm:text-lg min-h-[56px] w-full sm:w-auto">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-7 h-7 sm:w-6 sm:h-6" alt="WhatsApp">
-              Agendar Revisão Preventiva
-            </a>
-            <a href="#services" class="inline-flex items-center justify-center gap-3 px-8 py-4 border border-white/50 hover:bg-white/10 backdrop-blur-sm text-white font-semibold rounded-xl transition-all text-lg min-h-[56px] w-full sm:w-auto">
-              Ver Serviços
-            </a>
+          <div class="stat-card text-center">
+            <div class="stat-number text-3xl md:text-4xl">10k+</div>
+            <div class="text-gray-400 text-xs mt-1 font-medium">Atendimentos<br>Realizados</div>
+          </div>
+          <div class="stat-card text-center">
+            <div class="stat-number text-3xl md:text-4xl">4.9</div>
+            <div class="text-gray-400 text-xs mt-1 font-medium">Nota Média<br>Google</div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+      <span class="text-xs text-gray-500 uppercase tracking-widest">Scroll</span>
+      <div class="w-px h-8 bg-gradient-to-b from-gray-500 to-transparent"></div>
+    </div>
   </section>
 
-  <!-- MARCAS -->
-  <section id="brands" class="py-12 bg-[#111830] border-y border-[#2c3e50] overflow-hidden">
-    <div class="container px-4 md:px-6">
-      <h3 class="text-center text-gray-300 font-medium uppercase tracking-widest text-sm mb-10">Trabalhamos com todas as montadoras</h3>
-      <div class="overflow-hidden">
-        <div class="flex animate-marquee gap-16 whitespace-nowrap">
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Volkswagen_logo_2019.svg" class="h-14 w-auto invert brightness-0" alt="Volkswagen"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Chevrolet_simple_logo.svg" class="h-14 w-auto invert brightness-0" alt="Chevrolet"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Fiat_logo_1968.svg" class="h-14 w-auto invert brightness-0" alt="Fiat"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Toyota.svg" class="h-14 w-auto invert brightness-0" alt="Toyota"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Hyundai_Motor_Company_logo.svg" class="h-14 w-auto invert brightness-0" alt="Hyundai"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Honda.svg" class="h-14 w-auto invert brightness-0" alt="Honda"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Jeep_logo.svg" class="h-14 w-auto invert brightness-0" alt="Jeep"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Renault_2021.svg" class="h-14 w-auto invert brightness-0" alt="Renault"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Nissan_2020_logo.svg" class="h-14 w-auto invert brightness-0" alt="Nissan"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Peugeot_logo.svg" class="h-14 w-auto invert brightness-0" alt="Peugeot"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Citroën_logo.svg" class="h-14 w-auto invert brightness-0" alt="Citroën"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Mitsubishi_logo.svg" class="h-14 w-auto invert brightness-0" alt="Mitsubishi"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Chery_logo.svg" class="h-14 w-auto invert brightness-0" alt="Caoa Chery"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_logo_flat.svg" class="h-14 w-auto invert brightness-0" alt="Ford"></div>
-          <!-- Repetições para loop -->
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Volkswagen_logo_2019.svg" class="h-14 w-auto invert brightness-0" alt="Volkswagen"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Chevrolet_simple_logo.svg" class="h-14 w-auto invert brightness-0" alt="Chevrolet"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Fiat_logo_1968.svg" class="h-14 w-auto invert brightness-0" alt="Fiat"></div>
-          <div class="flex flex-col items-center min-w-[140px]"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Toyota.svg" class="h-14 w-auto invert brightness-0" alt="Toyota"></div>
+  <!-- BRANDS MARQUEE -->
+  <section id="brands" class="py-14 overflow-hidden relative" style="background: #080d1a; border-top: 1px solid rgba(240,65,39,0.1); border-bottom: 1px solid rgba(240,65,39,0.1);">
+    <div class="max-w-7xl mx-auto px-4 mb-8">
+      <p class="text-center text-gray-500 text-xs font-bold uppercase tracking-[0.2em]">Trabalhamos com todas as montadoras</p>
+    </div>
+    <div class="overflow-hidden relative">
+      <div style="position:absolute; left:0; top:0; bottom:0; width:120px; background: linear-gradient(to right, #080d1a, transparent); z-index:2; pointer-events:none;"></div>
+      <div style="position:absolute; right:0; top:0; bottom:0; width:120px; background: linear-gradient(to left, #080d1a, transparent); z-index:2; pointer-events:none;"></div>
+      <div class="animate-marquee gap-16">
+        <div class="flex gap-16 items-center">
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Volkswagen_logo_2019.svg" class="h-12 w-auto filter invert" alt="Volkswagen"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Chevrolet_simple_logo.svg" class="h-12 w-auto filter invert" alt="Chevrolet"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Fiat_logo_1968.svg" class="h-12 w-auto filter invert" alt="Fiat"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Toyota.svg" class="h-12 w-auto filter invert" alt="Toyota"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Hyundai_Motor_Company_logo.svg" class="h-12 w-auto filter invert" alt="Hyundai"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Honda.svg" class="h-12 w-auto filter invert" alt="Honda"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Jeep_logo.svg" class="h-12 w-auto filter invert" alt="Jeep"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Renault_2021.svg" class="h-12 w-auto filter invert" alt="Renault"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Nissan_2020_logo.svg" class="h-12 w-auto filter invert" alt="Nissan"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Peugeot_logo.svg" class="h-12 w-auto filter invert" alt="Peugeot"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Citroën_logo.svg" class="h-12 w-auto filter invert" alt="Citroën"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Mitsubishi_logo.svg" class="h-12 w-auto filter invert" alt="Mitsubishi"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_logo_flat.svg" class="h-12 w-auto filter invert" alt="Ford"></div>
+          <!-- Repeat -->
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Volkswagen_logo_2019.svg" class="h-12 w-auto filter invert" alt="Volkswagen"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Chevrolet_simple_logo.svg" class="h-12 w-auto filter invert" alt="Chevrolet"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Fiat_logo_1968.svg" class="h-12 w-auto filter invert" alt="Fiat"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Toyota.svg" class="h-12 w-auto filter invert" alt="Toyota"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Hyundai_Motor_Company_logo.svg" class="h-12 w-auto filter invert" alt="Hyundai"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Honda.svg" class="h-12 w-auto filter invert" alt="Honda"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Jeep_logo.svg" class="h-12 w-auto filter invert" alt="Jeep"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Renault_2021.svg" class="h-12 w-auto filter invert" alt="Renault"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Nissan_2020_logo.svg" class="h-12 w-auto filter invert" alt="Nissan"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Peugeot_logo.svg" class="h-12 w-auto filter invert" alt="Peugeot"></div>
+          <div class="flex flex-col items-center min-w-[120px] opacity-40 hover:opacity-80 transition-opacity"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Ford_logo_flat.svg" class="h-12 w-auto filter invert" alt="Ford"></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- SOBRE -->
-  <section id="about" class="py-24 bg-white">
-    <div class="container px-4 md:px-6">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+  <section id="about" class="py-28 relative overflow-hidden" style="background: #0a0f1e;">
+    <div class="absolute inset-0 grid-bg opacity-50 pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-20 items-center">
+
+        <!-- Left content -->
         <div class="space-y-8">
-          <h2 class="text-4xl md:text-5xl font-display font-bold text-[#111830]">Por que escolher a <span class="text-[#f04127]">Maranata</span>?</h2>
-          <div class="grid sm:grid-cols-2 gap-6 mt-10">
-            <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-[#f04127]/10 flex items-center justify-center"><svg class="w-5 h-5 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></div><span class="font-medium text-[#111830]">+15 Anos de Experiência</span></div>
-            <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-[#f04127]/10 flex items-center justify-center"><svg class="w-5 h-5 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></div><span class="font-medium text-[#111830]">Nota 4.9/5 em Avaliações</span></div>
-            <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-[#f04127]/10 flex items-center justify-center"><svg class="w-5 h-5 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></div><span class="font-medium text-[#111830]">+10.000 Atendimentos</span></div>
-            <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-[#f04127]/10 flex items-center justify-center"><svg class="w-5 h-5 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></div><span class="font-medium text-[#111830]">Foco em Manutenção Preventiva</span></div>
-            <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-[#f04127]/10 flex items-center justify-center"><svg class="w-5 h-5 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></div><span class="font-medium text-[#111830]">Profissionais Certificados</span></div>
-            <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-[#f04127]/10 flex items-center justify-center"><svg class="w-5 h-5 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></div><span class="font-medium text-[#111830]">Equipamentos Modernos</span></div>
+          <div class="space-y-4">
+            <div class="section-label">Por que nos escolher</div>
+            <h2 class="font-display text-4xl md:text-5xl font-black text-white leading-tight">
+              Por que escolher a<br>
+              <span class="text-[#f04127]">Maranata?</span>
+            </h2>
+            <div class="divider"></div>
+            <p class="text-gray-400 text-lg leading-relaxed">
+              Somos referência em Palmas-TO em manutenção de câmbio automático, com mais de 15 anos atendendo com transparência, qualidade e honestidade.
+            </p>
           </div>
+
+          <!-- Features list -->
+          <div class="space-y-3">
+            <div class="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/2 hover:bg-white/4 hover:border-[#f04127]/20 transition-all group">
+              <div class="w-10 h-10 rounded-lg bg-[#f04127]/10 border border-[#f04127]/20 flex items-center justify-center shrink-0 group-hover:bg-[#f04127]/20 transition-colors">
+                <svg class="w-5 h-5 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <div>
+                <p class="font-semibold text-white text-sm">+15 Anos de Experiência</p>
+                <p class="text-gray-500 text-xs">Décadas de conhecimento em câmbio automático</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/2 hover:bg-white/4 hover:border-[#f04127]/20 transition-all group">
+              <div class="w-10 h-10 rounded-lg bg-[#f04127]/10 border border-[#f04127]/20 flex items-center justify-center shrink-0 group-hover:bg-[#f04127]/20 transition-colors">
+                <svg class="w-5 h-5 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div>
+                <p class="font-semibold text-white text-sm">Nota 4.9/5 nas Avaliações</p>
+                <p class="text-gray-500 text-xs">Reconhecimento dos nossos clientes no Google</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/2 hover:bg-white/4 hover:border-[#f04127]/20 transition-all group">
+              <div class="w-10 h-10 rounded-lg bg-[#f04127]/10 border border-[#f04127]/20 flex items-center justify-center shrink-0 group-hover:bg-[#f04127]/20 transition-colors">
+                <svg class="w-5 h-5 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <p class="font-semibold text-white text-sm">+10.000 Atendimentos</p>
+                <p class="text-gray-500 text-xs">Confiança de milhares de clientes em Palmas</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/2 hover:bg-white/4 hover:border-[#f04127]/20 transition-all group">
+              <div class="w-10 h-10 rounded-lg bg-[#f04127]/10 border border-[#f04127]/20 flex items-center justify-center shrink-0 group-hover:bg-[#f04127]/20 transition-colors">
+                <svg class="w-5 h-5 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <p class="font-semibold text-white text-sm">Garantia de até 6 meses</p>
+                <p class="text-gray-500 text-xs">Em serviços de câmbio automático e manutenção</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/2 hover:bg-white/4 hover:border-[#f04127]/20 transition-all group">
+              <div class="w-10 h-10 rounded-lg bg-[#f04127]/10 border border-[#f04127]/20 flex items-center justify-center shrink-0 group-hover:bg-[#f04127]/20 transition-colors">
+                <svg class="w-5 h-5 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              </div>
+              <div>
+                <p class="font-semibold text-white text-sm">Profissionais Certificados</p>
+                <p class="text-gray-500 text-xs">Técnicos especializados com equipamentos modernos</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="https://wa.me/5563999592030?text=Olá!%20Gostaria%20de%20um%20orçamento"
+             target="_blank"
+             onclick="return gtag_report_conversion(this.href, 'LKU8COGHqIIcEJamkKMB');"
+             class="btn-primary inline-flex items-center gap-3 px-7 py-4 text-white font-bold rounded-2xl text-base">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-5 h-5" alt="">
+            Solicitar Orçamento Grátis
+          </a>
         </div>
-        <div class="grid grid-cols-2 gap-6">
-          <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/unnamed-2.webp?allow_lossy=1" class="rounded-2xl shadow-2xl h-80 object-cover col-span-2 lg:col-span-1" alt="Mecânico">
-          <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/unnamed-1-edited.webp?allow_lossy=1" class="rounded-2xl shadow-2xl h-60 object-cover" alt="Motor">
-          <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/unnamed.webp?allow_lossy=1" class="rounded-2xl shadow-2xl h-60 object-cover" alt="Oficina">
+
+        <!-- Right: Photo grid -->
+        <div class="relative">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="col-span-2 rounded-3xl overflow-hidden relative h-72 group">
+              <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/unnamed-2.webp?allow_lossy=1"
+                   class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Mecânico Maranata">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              <div class="absolute bottom-4 left-4">
+                <span class="section-label text-xs">Nossa Equipe</span>
+              </div>
+            </div>
+            <div class="rounded-3xl overflow-hidden h-48 group relative">
+              <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/unnamed-1-edited.webp?allow_lossy=1"
+                   class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Motor">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            </div>
+            <!-- Where unnamed.webp was — now replaced by a styled info card -->
+            <div class="rounded-3xl overflow-hidden h-48 border-animated flex flex-col items-center justify-center p-6 text-center">
+              <div class="w-14 h-14 rounded-full bg-[#f04127]/10 border border-[#f04127]/20 flex items-center justify-center mb-3">
+                <svg class="w-7 h-7 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"/>
+                </svg>
+              </div>
+              <p class="stat-number text-4xl font-black">4.9</p>
+              <p class="text-gray-400 text-xs font-medium mt-1">Nota no Google</p>
+              <div class="flex gap-0.5 mt-2">
+                <svg class="w-3 h-3 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg class="w-3 h-3 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg class="w-3 h-3 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg class="w-3 h-3 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg class="w-3 h-3 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating badge -->
+          <div class="absolute -top-4 -right-4 hidden lg:flex items-center gap-2 bg-[#f04127] text-white px-4 py-2 rounded-2xl shadow-lg font-bold text-sm glow-red-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Garantia 6 meses
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- SERVIÇOS -->
-  <section id="services" class="py-24 bg-[#111830] relative">
-    <div class="container px-4 md:px-6">
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-5">Nossos <span class="text-[#f04127]">Serviços</span></h2>
-        <p class="text-gray-200 text-lg">Soluções completas para manutenção do seu veículo, com ênfase em transmissões automáticas e manutenção preventiva.</p>
+  <section id="services" class="py-28 relative overflow-hidden" style="background: #080d1a;">
+    <div class="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#f04127] rounded-full opacity-5 blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+        <div class="section-label mx-auto w-fit">Nossos Serviços</div>
+        <h2 class="font-display text-4xl md:text-5xl font-black text-white">
+          Soluções Completas para<br>seu <span class="text-[#f04127]">Veículo</span>
+        </h2>
+        <div class="divider mx-auto"></div>
+        <p class="text-gray-400 text-lg">Especialistas em transmissões automáticas e manutenção preventiva para todas as marcas.</p>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" id="services-grid">
-        <div class="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#f04127]/60 transition-all hover:shadow-[0_10px_25px_-5px_rgba(240,65,39,0.15)] service-card flex flex-col">
-          <div class="p-10 md:p-12 flex justify-center items-center bg-gray-50 min-h-[180px]"><i class="fas fa-microchip text-6xl md:text-7xl text-[#f04127]"></i></div>
-          <div class="p-6 md:p-8 flex flex-col flex-grow">
-            <h3 class="text-lg md:text-xl font-bold text-[#111830] mb-3">Programação em Transmissão</h3>
-            <p class="text-gray-700 text-sm mb-6 flex-grow line-clamp-4">Atualização e programação avançada de módulos de transmissão para otimizar desempenho e corrigir falhas eletrônicas.</p>
-            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20programação%20em%20transmissão" target="_blank" onclick="return gtag_report_conversion(this.href, '3S4aCKjDqIIcEJamkKMB');" class="mt-auto w-full py-3 bg-[#f04127]/10 hover:bg-[#f04127]/20 text-[#f04127] font-medium rounded-lg transition text-center">Saiba mais</a>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="services-grid">
+
+        <!-- Card 1 -->
+        <div class="service-card rounded-2xl p-7 flex flex-col gap-5">
+          <div class="icon-box">
+            <i class="fas fa-microchip text-2xl text-[#f04127]"></i>
           </div>
-        </div>
-        <div class="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#f04127]/60 transition-all hover:shadow-[0_10px_25px_-5px_rgba(240,65,39,0.15)] service-card flex flex-col">
-          <div class="p-10 md:p-12 flex justify-center items-center bg-gray-50 min-h-[180px]"><i class="fas fa-oil-can text-6xl md:text-7xl text-[#f04127]"></i></div>
-          <div class="p-6 md:p-8 flex flex-col flex-grow">
-            <h3 class="text-lg md:text-xl font-bold text-[#111830] mb-3">Troca de Fluido de Transmissão</h3>
-            <p class="text-gray-700 text-sm mb-6 flex-grow line-clamp-4">Troca completa de fluido com flushing para remover impurezas, prolongando a vida útil da transmissão.</p>
-            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20troca%20de%20fluido%20de%20transmissão" target="_blank" onclick="return gtag_report_conversion(this.href, '916ACKG_nYIcEJamkKMB');" class="mt-auto w-full py-3 bg-[#f04127]/10 hover:bg-[#f04127]/20 text-[#f04127] font-medium rounded-lg transition text-center">Saiba mais</a>
+          <div class="flex-1">
+            <h3 class="font-display font-bold text-white text-lg mb-2">Programação em Transmissão</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Atualização e programação avançada de módulos de transmissão para otimizar desempenho e corrigir falhas eletrônicas.</p>
           </div>
-        </div>
-        <div class="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#f04127]/60 transition-all hover:shadow-[0_10px_25px_-5px_rgba(240,65,39,0.15)] service-card flex flex-col">
-          <div class="p-10 md:p-12 flex justify-center items-center bg-gray-50 min-h-[180px]"><i class="fas fa-bolt text-6xl md:text-7xl text-[#f04127]"></i></div>
-          <div class="p-6 md:p-8 flex flex-col flex-grow">
-            <h3 class="text-lg md:text-xl font-bold text-[#111830] mb-3">Reparo Elétrico de Transmissão</h3>
-            <p class="text-gray-700 text-sm mb-6 flex-grow line-clamp-4">Diagnóstico e reparo de falhas elétricas em sensores, módulos e fiação de transmissões automáticas.</p>
-            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20reparo%20elétrico%20de%20transmissão" target="_blank" onclick="return gtag_report_conversion(this.href, 'ra6CCLXHnYIcEJamkKMB');" class="mt-auto w-full py-3 bg-[#f04127]/10 hover:bg-[#f04127]/20 text-[#f04127] font-medium rounded-lg transition text-center">Saiba mais</a>
-          </div>
-        </div>
-        <div class="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#f04127]/60 transition-all hover:shadow-[0_10px_25px_-5px_rgba(240,65,39,0.15)] service-card flex flex-col">
-          <div class="p-10 md:p-12 flex justify-center items-center bg-gray-50 min-h-[180px]"><i class="fas fa-wrench text-6xl md:text-7xl text-[#f04127]"></i></div>
-          <div class="p-6 md:p-8 flex flex-col flex-grow">
-            <h3 class="text-lg md:text-xl font-bold text-[#111830] mb-3">Manutenção Preventiva e Corretiva</h3>
-            <p class="text-gray-700 text-sm mb-6 flex-grow line-clamp-4">Planos de manutenção regular para prevenir falhas e correções rápidas para problemas existentes, com foco em durabilidade.</p>
-            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20manutenção%20preventiva%20e%20corretiva" target="_blank" onclick="return gtag_report_conversion(this.href, 'qeg-CLfhqIIcEJamkKMB');" class="mt-auto w-full py-3 bg-[#f04127]/10 hover:bg-[#f04127]/20 text-[#f04127] font-medium rounded-lg transition text-center">Saiba mais</a>
-          </div>
-        </div>
-        <div class="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#f04127]/60 transition-all hover:shadow-[0_10px_25px_-5px_rgba(240,65,39,0.15)] service-card flex flex-col">
-          <div class="p-10 md:p-12 flex justify-center items-center bg-gray-50 min-h-[180px]"><i class="fas fa-tools text-6xl md:text-7xl text-[#f04127]"></i></div>
-          <div class="p-6 md:p-8 flex flex-col flex-grow">
-            <h3 class="text-lg md:text-xl font-bold text-[#111830] mb-3">Reparo em Transmissão Automática</h3>
-            <p class="text-gray-700 text-sm mb-6 flex-grow line-clamp-4">Reparos completos em transmissões automáticas, incluindo reconstrução e substituição de componentes danificados.</p>
-            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20reparo%20em%20transmissão%20automática" target="_blank" onclick="return gtag_report_conversion(this.href, 'B6MACMvmqIIcEJamkKMB');" class="mt-auto w-full py-3 bg-[#f04127]/10 hover:bg-[#f04127]/20 text-[#f04127] font-medium rounded-lg transition text-center">Saiba mais</a>
-          </div>
-        </div>
-        <div class="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#f04127]/60 transition-all hover:shadow-[0_10px_25px_-5px_rgba(240,65,39,0.15)] service-card flex flex-col">
-          <div class="p-10 md:p-12 flex justify-center items-center bg-gray-50 min-h-[180px]"><i class="fas fa-oil-can text-6xl md:text-7xl text-[#f04127]"></i></div>
-          <div class="p-6 md:p-8 flex flex-col flex-grow">
-            <h3 class="text-lg md:text-xl font-bold text-[#111830] mb-3">Troca de Óleo</h3>
-            <p class="text-gray-700 text-sm mb-6 flex-grow line-clamp-4">Troca de óleo do motor e transmissão com filtros de qualidade para manter o veículo eficiente.</p>
-            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20troca%20de%20óleo" target="_blank" onclick="return gtag_report_conversion(this.href, 'gM4cCPjgnYIcEJamkKMB');" class="mt-auto w-full py-3 bg-[#f04127]/10 hover:bg-[#f04127]/20 text-[#f04127] font-medium rounded-lg transition text-center">Saiba mais</a>
-          </div>
+          <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20programação%20em%20transmissão"
+             target="_blank"
+             onclick="return gtag_report_conversion(this.href, '3S4aCKjDqIIcEJamkKMB');"
+             class="inline-flex items-center gap-2 text-[#f04127] text-sm font-semibold hover:gap-3 transition-all group">
+            Saiba mais
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
         </div>
 
-        <!-- Serviços escondidos -->
-        <div class="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#f04127]/60 transition-all hover:shadow-[0_10px_25px_-5px_rgba(240,65,39,0.15)] service-card flex flex-col more-services hidden">
-          <div class="p-10 md:p-12 flex justify-center items-center bg-gray-50 min-h-[180px]"><i class="fas fa-cogs text-6xl md:text-7xl text-[#f04127]"></i></div>
-          <div class="p-6 md:p-8 flex flex-col flex-grow">
-            <h3 class="text-lg md:text-xl font-bold text-[#111830] mb-3">Venda de Peças de Transmissão</h3>
-            <p class="text-gray-700 text-sm mb-6 flex-grow line-clamp-4">Peças originais e alternativas para transmissões automáticas, com garantia de qualidade.</p>
-            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20venda%20de%20peças%20de%20transmissão" target="_blank" onclick="return gtag_report_conversion(this.href, '3pLjCPfonYIcEJamkKMB');" class="mt-auto w-full py-3 bg-[#f04127]/10 hover:bg-[#f04127]/20 text-[#f04127] font-medium rounded-lg transition text-center">Saiba mais</a>
+        <!-- Card 2 -->
+        <div class="service-card rounded-2xl p-7 flex flex-col gap-5">
+          <div class="icon-box">
+            <i class="fas fa-oil-can text-2xl text-[#f04127]"></i>
           </div>
+          <div class="flex-1">
+            <h3 class="font-display font-bold text-white text-lg mb-2">Troca de Fluido de Transmissão</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Troca completa de fluido com flushing para remover impurezas, prolongando a vida útil da transmissão.</p>
+          </div>
+          <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20troca%20de%20fluido%20de%20transmissão"
+             target="_blank"
+             onclick="return gtag_report_conversion(this.href, '916ACKG_nYIcEJamkKMB');"
+             class="inline-flex items-center gap-2 text-[#f04127] text-sm font-semibold hover:gap-3 transition-all group">
+            Saiba mais <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
         </div>
-        <div class="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#f04127]/60 transition-all hover:shadow-[0_10px_25px_-5px_rgba(240,65,39,0.15)] service-card flex flex-col more-services hidden">
-          <div class="p-10 md:p-12 flex justify-center items-center bg-gray-50 min-h-[180px]"><i class="fas fa-car-side text-6xl md:text-7xl text-[#f04127]"></i></div>
-          <div class="p-6 md:p-8 flex flex-col flex-grow">
-            <h3 class="text-lg md:text-xl font-bold text-[#111830] mb-3">Serviços de Freios</h3>
-            <p class="text-gray-700 text-sm mb-6 flex-grow line-clamp-4">Inspeção, troca de pastilhas, discos e fluido de freios para máxima segurança.</p>
-            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20serviços%20de%20freios" target="_blank" onclick="return gtag_report_conversion(this.href, 'd0i8CJjyqIIcEJamkKMB');" class="mt-auto w-full py-3 bg-[#f04127]/10 hover:bg-[#f04127]/20 text-[#f04127] font-medium rounded-lg transition text-center">Saiba mais</a>
+
+        <!-- Card 3 -->
+        <div class="service-card rounded-2xl p-7 flex flex-col gap-5">
+          <div class="icon-box">
+            <i class="fas fa-bolt text-2xl text-[#f04127]"></i>
           </div>
+          <div class="flex-1">
+            <h3 class="font-display font-bold text-white text-lg mb-2">Reparo Elétrico de Transmissão</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Diagnóstico e reparo de falhas elétricas em sensores, módulos e fiação de transmissões automáticas.</p>
+          </div>
+          <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20reparo%20elétrico%20de%20transmissão"
+             target="_blank"
+             onclick="return gtag_report_conversion(this.href, 'ra6CCLXHnYIcEJamkKMB');"
+             class="inline-flex items-center gap-2 text-[#f04127] text-sm font-semibold hover:gap-3 transition-all group">
+            Saiba mais <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
         </div>
-        <div class="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#f04127]/60 transition-all hover:shadow-[0_10px_25px_-5px_rgba(240,65,39,0.15)] service-card flex flex-col more-services hidden">
-          <div class="p-10 md:p-12 flex justify-center items-center bg-gray-50 min-h-[180px]"><i class="fas fa-wrench text-6xl md:text-7xl text-[#f04127]"></i></div>
-          <div class="p-6 md:p-8 flex flex-col flex-grow">
-            <h3 class="text-lg md:text-xl font-bold text-[#111830] mb-3">Manutenções em Geral</h3>
-            <p class="text-gray-700 text-sm mb-6 flex-grow line-clamp-4">Manutenções completas para motor, suspensão, elétrico e mais, com foco em prevenção.</p>
-            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20manutenções%20em%20geral" target="_blank" onclick="return gtag_report_conversion(this.href, 'Gle3CPD5qIIcEJamkKMB');" class="mt-auto w-full py-3 bg-[#f04127]/10 hover:bg-[#f04127]/20 text-[#f04127] font-medium rounded-lg transition text-center">Saiba mais</a>
+
+        <!-- Card 4 -->
+        <div class="service-card rounded-2xl p-7 flex flex-col gap-5">
+          <div class="icon-box">
+            <i class="fas fa-wrench text-2xl text-[#f04127]"></i>
           </div>
+          <div class="flex-1">
+            <h3 class="font-display font-bold text-white text-lg mb-2">Manutenção Preventiva e Corretiva</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Planos de manutenção regular para prevenir falhas e correções rápidas para problemas existentes.</p>
+          </div>
+          <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20manutenção%20preventiva%20e%20corretiva"
+             target="_blank"
+             onclick="return gtag_report_conversion(this.href, 'qeg-CLfhqIIcEJamkKMB');"
+             class="inline-flex items-center gap-2 text-[#f04127] text-sm font-semibold hover:gap-3 transition-all group">
+            Saiba mais <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
         </div>
-        <div class="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#f04127]/60 transition-all hover:shadow-[0_10px_25px_-5px_rgba(240,65,39,0.15)] service-card flex flex-col more-services hidden">
-          <div class="p-10 md:p-12 flex justify-center items-center bg-gray-50 min-h-[180px]"><i class="fas fa-car text-6xl md:text-7xl text-[#f04127]"></i></div>
-          <div class="p-6 md:p-8 flex flex-col flex-grow">
-            <h3 class="text-lg md:text-xl font-bold text-[#111830] mb-3">Alinhamento e Balanceamento</h3>
-            <p class="text-gray-700 text-sm mb-6 flex-grow line-clamp-4">Ajustes precisos para melhorar o desempenho e prolongar a vida útil dos pneus.</p>
-            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20alinhamento%20e%20balanceamento" target="_blank" onclick="return gtag_report_conversion(this.href, 'wgyCCOTiloIcEJamkKMB');" class="mt-auto w-full py-3 bg-[#f04127]/10 hover:bg-[#f04127]/20 text-[#f04127] font-medium rounded-lg transition text-center">Saiba mais</a>
+
+        <!-- Card 5 -->
+        <div class="service-card rounded-2xl p-7 flex flex-col gap-5">
+          <div class="icon-box">
+            <i class="fas fa-tools text-2xl text-[#f04127]"></i>
           </div>
+          <div class="flex-1">
+            <h3 class="font-display font-bold text-white text-lg mb-2">Reparo em Transmissão Automática</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Reparos completos incluindo reconstrução e substituição de componentes danificados com garantia.</p>
+          </div>
+          <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20reparo%20em%20transmissão%20automática"
+             target="_blank"
+             onclick="return gtag_report_conversion(this.href, 'B6MACMvmqIIcEJamkKMB');"
+             class="inline-flex items-center gap-2 text-[#f04127] text-sm font-semibold hover:gap-3 transition-all group">
+            Saiba mais <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
         </div>
-        <div class="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#f04127]/60 transition-all hover:shadow-[0_10px_25px_-5px_rgba(240,65,39,0.15)] service-card flex flex-col more-services hidden">
-          <div class="p-10 md:p-12 flex justify-center items-center bg-gray-50 min-h-[180px]"><i class="fas fa-car-side text-6xl md:text-7xl text-[#f04127]"></i></div>
-          <div class="p-6 md:p-8 flex flex-col flex-grow">
-            <h3 class="text-lg md:text-xl font-bold text-[#111830] mb-3">Venda de Pneus (Novos)</h3>
-            <p class="text-gray-700 text-sm mb-6 flex-grow line-clamp-4">Pneus novos de marcas premium, com instalação inclusa e garantia.</p>
-            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20venda%20de%20pneus" target="_blank" onclick="return gtag_report_conversion(this.href, 'b44FCOzqloIcEJamkKMB');" class="mt-auto w-full py-3 bg-[#f04127]/10 hover:bg-[#f04127]/20 text-[#f04127] font-medium rounded-lg transition text-center">Saiba mais</a>
+
+        <!-- Card 6 -->
+        <div class="service-card rounded-2xl p-7 flex flex-col gap-5">
+          <div class="icon-box">
+            <i class="fas fa-tint text-2xl text-[#f04127]"></i>
           </div>
+          <div class="flex-1">
+            <h3 class="font-display font-bold text-white text-lg mb-2">Troca de Óleo</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Troca de óleo do motor e transmissão com filtros de qualidade para manter o veículo eficiente e protegido.</p>
+          </div>
+          <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20troca%20de%20óleo"
+             target="_blank"
+             onclick="return gtag_report_conversion(this.href, 'gM4cCPjgnYIcEJamkKMB');"
+             class="inline-flex items-center gap-2 text-[#f04127] text-sm font-semibold hover:gap-3 transition-all group">
+            Saiba mais <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
         </div>
-        <div class="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#f04127]/60 transition-all hover:shadow-[0_10px_25px_-5px_rgba(240,65,39,0.15)] service-card flex flex-col more-services hidden">
-          <div class="p-10 md:p-12 flex justify-center items-center bg-gray-50 min-h-[180px]"><i class="fas fa-gas-pump text-6xl md:text-7xl text-[#f04127]"></i></div>
-          <div class="p-6 md:p-8 flex flex-col flex-grow">
-            <h3 class="text-lg md:text-xl font-bold text-[#111830] mb-3">Serviço de Injeção Eletrônica</h3>
-            <p class="text-gray-700 text-sm mb-6 flex-grow line-clamp-4">Limpeza, ajuste e reparo de sistemas de injeção para melhor eficiência de combustível.</p>
-            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20serviço%20de%20injeção%20eletrônica" target="_blank" onclick="return gtag_report_conversion(this.href, 'gTZyCJ_2qIIcEJamkKMB');" class="mt-auto w-full py-3 bg-[#f04127]/10 hover:bg-[#f04127]/20 text-[#f04127] font-medium rounded-lg transition text-center">Saiba mais</a>
+
+        <!-- Hidden cards -->
+        <div class="service-card rounded-2xl p-7 flex flex-col gap-5 more-services hidden">
+          <div class="icon-box"><i class="fas fa-cogs text-2xl text-[#f04127]"></i></div>
+          <div class="flex-1">
+            <h3 class="font-display font-bold text-white text-lg mb-2">Venda de Peças de Transmissão</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Peças originais e alternativas para transmissões automáticas, com garantia de qualidade.</p>
           </div>
+          <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20venda%20de%20peças%20de%20transmissão" target="_blank" onclick="return gtag_report_conversion(this.href, '3p
+
+        <div class="service-card rounded-2xl p-7 flex flex-col gap-5 more-services hidden">
+          <div class="icon-box"><i class="fas fa-cogs text-2xl text-[#f04127]"></i></div>
+          <div class="flex-1">
+            <h3 class="font-display font-bold text-white text-lg mb-2">Venda de Peças de Transmissão</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Peças originais e alternativas para transmissões automáticas, com garantia de qualidade.</p>
+          </div>
+          <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20venda%20de%20peças%20de%20transmissão" target="_blank" onclick="return gtag_report_conversion(this.href, '3pLjCPfonYIcEJamkKMB');" class="inline-flex items-center gap-2 text-[#f04127] text-sm font-semibold hover:gap-3 transition-all group">
+            Saiba mais <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
         </div>
-        <div class="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#f04127]/60 transition-all hover:shadow-[0_10px_25px_-5px_rgba(240,65,39,0.15)] service-card flex flex-col more-services hidden">
-          <div class="p-10 md:p-12 flex justify-center items-center bg-gray-50 min-h-[180px]"><i class="fas fa-compass text-6xl md:text-7xl text-[#f04127]"></i></div>
-          <div class="p-6 md:p-8 flex flex-col flex-grow">
-            <h3 class="text-lg md:text-xl font-bold text-[#111830] mb-3">Ajustes de Ângulo de Direção</h3>
-            <p class="text-gray-700 text-sm mb-6 flex-grow line-clamp-4">Ajustes precisos no sistema de direção para melhorar a estabilidade e segurança.</p>
-            <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20ajustes%20de%20ângulo%20de%20direção" target="_blank" onclick="return gtag_report_conversion(this.href, '4yVECJmFnoIcEJamkKMB');" class="mt-auto w-full py-3 bg-[#f04127]/10 hover:bg-[#f04127]/20 text-[#f04127] font-medium rounded-lg transition text-center">Saiba mais</a>
+
+        <div class="service-card rounded-2xl p-7 flex flex-col gap-5 more-services hidden">
+          <div class="icon-box"><i class="fas fa-car-side text-2xl text-[#f04127]"></i></div>
+          <div class="flex-1">
+            <h3 class="font-display font-bold text-white text-lg mb-2">Serviços de Freios</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Inspeção, troca de pastilhas, discos e fluido de freios para máxima segurança.</p>
           </div>
+          <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20serviços%20de%20freios" target="_blank" onclick="return gtag_report_conversion(this.href, 'd0i8CJjyqIIcEJamkKMB');" class="inline-flex items-center gap-2 text-[#f04127] text-sm font-semibold hover:gap-3 transition-all group">
+            Saiba mais <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+        </div>
+
+        <div class="service-card rounded-2xl p-7 flex flex-col gap-5 more-services hidden">
+          <div class="icon-box"><i class="fas fa-wrench text-2xl text-[#f04127]"></i></div>
+          <div class="flex-1">
+            <h3 class="font-display font-bold text-white text-lg mb-2">Manutenções em Geral</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Manutenções completas para motor, suspensão, parte elétrica e mais, com foco em prevenção e segurança.</p>
+          </div>
+          <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20manutenções%20em%20geral" target="_blank" onclick="return gtag_report_conversion(this.href, 'Gle3CPD5qIIcEJamkKMB');" class="inline-flex items-center gap-2 text-[#f04127] text-sm font-semibold hover:gap-3 transition-all group">
+            Saiba mais <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+        </div>
+
+        <div class="service-card rounded-2xl p-7 flex flex-col gap-5 more-services hidden">
+          <div class="icon-box"><i class="fas fa-car text-2xl text-[#f04127]"></i></div>
+          <div class="flex-1">
+            <h3 class="font-display font-bold text-white text-lg mb-2">Alinhamento e Balanceamento</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Ajustes precisos para melhorar o desempenho, conforto e prolongar a vida útil dos pneus.</p>
+          </div>
+          <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20alinhamento%20e%20balanceamento" target="_blank" onclick="return gtag_report_conversion(this.href, 'wgyCCOTiloIcEJamkKMB');" class="inline-flex items-center gap-2 text-[#f04127] text-sm font-semibold hover:gap-3 transition-all group">
+            Saiba mais <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+        </div>
+
+        <div class="service-card rounded-2xl p-7 flex flex-col gap-5 more-services hidden">
+          <div class="icon-box"><i class="fas fa-car-side text-2xl text-[#f04127]"></i></div>
+          <div class="flex-1">
+            <h3 class="font-display font-bold text-white text-lg mb-2">Venda de Pneus (Novos)</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Pneus novos de marcas de confiança, com instalação e balanceamento feitos na hora.</p>
+          </div>
+          <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20venda%20de%20pneus" target="_blank" onclick="return gtag_report_conversion(this.href, 'b44FCOzqloIcEJamkKMB');" class="inline-flex items-center gap-2 text-[#f04127] text-sm font-semibold hover:gap-3 transition-all group">
+            Saiba mais <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+        </div>
+
+        <div class="service-card rounded-2xl p-7 flex flex-col gap-5 more-services hidden">
+          <div class="icon-box"><i class="fas fa-gas-pump text-2xl text-[#f04127]"></i></div>
+          <div class="flex-1">
+            <h3 class="font-display font-bold text-white text-lg mb-2">Serviço de Injeção Eletrônica</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Limpeza, ajuste e reparo de sistemas de injeção eletrônica para mais economia e desempenho.</p>
+          </div>
+          <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20serviço%20de%20injeção%20eletrônica" target="_blank" onclick="return gtag_report_conversion(this.href, 'gTZyCJ_2qIIcEJamkKMB');" class="inline-flex items-center gap-2 text-[#f04127] text-sm font-semibold hover:gap-3 transition-all group">
+            Saiba mais <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+        </div>
+
+        <div class="service-card rounded-2xl p-7 flex flex-col gap-5 more-services hidden">
+          <div class="icon-box"><i class="fas fa-compass text-2xl text-[#f04127]"></i></div>
+          <div class="flex-1">
+            <h3 class="font-display font-bold text-white text-lg mb-2">Ajustes de Ângulo de Direção</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">Ajustes precisos no sistema de direção para mais estabilidade, segurança e conforto ao dirigir.</p>
+          </div>
+          <a href="https://wa.me/5563999592030?text=Olá!%20Quero%20saber%20mais%20sobre%20ajustes%20de%20ângulo%20de%20direção" target="_blank" onclick="return gtag_report_conversion(this.href, '4yVECJmFnoIcEJamkKMB');" class="inline-flex items-center gap-2 text-[#f04127] text-sm font-semibold hover:gap-3 transition-all group">
+            Saiba mais <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
         </div>
       </div>
-      <div class="text-center mt-10">
-        <button id="ver-mais-servicos" class="px-10 py-4 bg-[#f04127]/20 hover:bg-[#f04127]/30 text-[#f04127] font-bold rounded-xl transition shadow-md">Ver todos os serviços</button>
+
+      <div class="text-center mt-12">
+        <button id="ver-mais-servicos" class="px-10 py-4 rounded-2xl border border-[#f04127]/40 bg-[#f04127]/10 text-[#f04127] font-bold text-sm tracking-wide uppercase hover:bg-[#f04127]/20 transition-all">
+          Ver todos os serviços
+        </button>
       </div>
     </div>
   </section>
 
   <!-- DEPOIMENTOS -->
-  <section id="testimonials" class="py-24 bg-white border-y border-gray-200">
-    <div class="container px-4 md:px-6">
-      <h2 class="text-4xl md:text-5xl font-display font-bold text-center text-[#111830] mb-16">O que nossos <span class="text-[#f04127]">Clientes</span> dizem</h2>
+  <section id="testimonials" class="py-28 bg-white relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle at top left, rgba(240,65,39,0.06) 0, transparent 55%), radial-gradient(circle at bottom right, rgba(15,23,42,0.08) 0, transparent 60%);"></div>
+    <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+        <div class="section-label mx-auto w-fit text-[#f04127] bg-[#f04127]/10 border-[#f04127]/30">Depoimentos reais</div>
+        <h2 class="font-display text-4xl md:text-5xl font-black text-[#111830]">
+          O que nossos <span class="text-[#f04127]">Clientes</span> dizem
+        </h2>
+        <div class="divider mx-auto" style="background: linear-gradient(90deg, #f04127, #111830);"></div>
+      </div>
+
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white p-8 rounded-2xl border border-gray-200 hover:border-[#f04127]/40 transition-all relative group shadow-sm">
-          <div class="absolute -top-5 left-8 bg-[#f04127] p-3 rounded-xl"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-          <div class="flex gap-1 mb-5 pt-6">
-            <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <div class="testimonial-card p-8 rounded-2xl">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex gap-1">
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <span class="text-xs text-gray-400 uppercase tracking-widest">Cliente verificada</span>
           </div>
-          <p class="text-gray-600 italic mb-6">"Sou mulher e sempre tive receio de levar meu carro em oficinas, mas a Oficina Maranata é o único lugar onde confio plenamente. O atendimento do Ademilson foi excepcional, sempre transparente e honesto. Levo meu carro lá sem medo de ser enganada, e sei que estou em boas mãos. Recomendo a todos que procuram um serviço de confiança e qualidade!"</p>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center font-bold text-[#f04127]">L</div>
-            <div><h4 class="font-bold text-[#111830]">Laryssa Hortegal</h4><span class="text-xs text-gray-500">Cliente verificada</span></div>
-          </div>
-        </div>
-        <div class="bg-white p-8 rounded-2xl border border-gray-200 hover:border-[#f04127]/40 transition-all relative group shadow-sm">
-          <div class="absolute -top-5 left-8 bg-[#f04127] p-3 rounded-xl"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-          <div class="flex gap-1 mb-5 pt-6">
-            <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <p class="text-gray-600 italic mb-6">"Pessoal atencioso e competente, primeira vez que usei o serviço, não conhecia a oficina, o câmbio do meu carro estava dando umas travadas, depois de deixar o carro pra analisar acharam um fio partido, nada foi desmontado, o serviço ficou super barato e eu já estava achando que ia ser muito caro. Recomendo demais, podem confiar, pessoas competentes e honestas."</p>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center font-bold text-[#f04127]">M</div>
-            <div><h4 class="font-bold text-[#111830]">Marcos Renato Herrera</h4><span class="text-xs text-gray-500">Cliente verificado</span></div>
+          <p class="text-gray-200 text-sm leading-relaxed italic mb-6">
+            "Sou mulher e sempre tive receio de levar meu carro em oficinas, mas a Oficina Maranata é o único lugar onde confio plenamente. O atendimento do Ademilson foi excepcional, sempre transparente e honesto. Levo meu carro lá sem medo de ser enganada, e sei que estou em boas mãos. Recomendo a todos que procuram um serviço de confiança e qualidade!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#f04127]/15 flex items-center justify-center text-sm font-bold text-[#f04127]">
+              L
+            </div>
+            <div>
+              <p class="font-semibold text-white text-sm">Laryssa Hortegal</p>
+              <p class="text-[11px] text-gray-400">Avaliação no Google</p>
+            </div>
           </div>
         </div>
-        <div class="bg-white p-8 rounded-2xl border border-gray-200 hover:border-[#f04127]/40 transition-all relative group shadow-sm">
-          <div class="absolute -top-5 left-8 bg-[#f04127] p-3 rounded-xl"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-          <div class="flex gap-1 mb-5 pt-6">
-            <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+
+        <div class="testimonial-card p-8 rounded-2xl">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex gap-1">
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <span class="text-xs text-gray-400 uppercase tracking-widest">Cliente verificado</span>
           </div>
-          <p class="text-gray-600 italic mb-6">"Sem sombra de dúvidas a melhor ofina de Palmas-TO. Sempre que preciso só vou lá, pois sei que estou em boas mãos. Recomendo a todos que querem um atendimento exclusivo e com qualidade!"</p>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center font-bold text-[#f04127]">A</div>
-            <div><h4 class="font-bold text-[#111830]">Ana Lucia Batista</h4><span class="text-xs text-gray-500">Cliente verificada</span></div>
+          <p class="text-gray-200 text-sm leading-relaxed italic mb-6">
+            "Pessoal atencioso e competente, primeira vez que usei o serviço, não conhecia a oficina, o câmbio do meu carro estava dando umas travadas, depois de deixar o carro pra analisar acharam um fio partido, nada foi desmontado, o serviço ficou super barato e eu já estava achando que ia ser muito caro. Recomendo demais, podem confiar, pessoas competentes e honestas."
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#f04127]/15 flex items-center justify-center text-sm font-bold text-[#f04127]">
+              M
+            </div>
+            <div>
+              <p class="font-semibold text-white text-sm">Marcos Renato Herrera</p>
+              <p class="text-[11px] text-gray-400">Avaliação no Google</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card p-8 rounded-2xl">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex gap-1">
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <span class="text-xs text-gray-400 uppercase tracking-widest">Cliente verificada</span>
+          </div>
+          <p class="text-gray-200 text-sm leading-relaxed italic mb-6">
+            "Sem sombra de dúvidas a melhor oficina de Palmas-TO. Sempre que preciso só vou lá, pois sei que estou em boas mãos. Recomendo a todos que querem um atendimento exclusivo e com qualidade!"
+          </p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#f04127]/15 flex items-center justify-center text-sm font-bold text-[#f04127]">
+              A
+            </div>
+            <div>
+              <p class="font-semibold text-white text-sm">Ana Lucia Batista</p>
+              <p class="text-[11px] text-gray-400">Avaliação no Google</p>
+            </div>
           </div>
         </div>
       </div>
@@ -491,98 +903,165 @@
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="py-24 bg-[#111830]">
-    <div class="container px-4 md:px-6 max-w-4xl mx-auto">
-      <h2 class="text-4xl md:text-5xl font-display font-bold text-center text-white mb-14">Perguntas <span class="text-[#f04127]">Frequentes</span></h2>
+  <section id="faq" class="py-28 bg-[#080d1a] relative overflow-hidden">
+    <div class="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
+    <div class="max-w-4xl mx-auto px-4 md:px-8 relative z-10">
+      <div class="text-center mb-14 space-y-4">
+        <div class="section-label mx-auto w-fit">Perguntas Frequentes</div>
+        <h2 class="font-display text-4xl md:text-5xl font-black text-white">Dúvidas sobre a oficina?</h2>
+        <div class="divider mx-auto"></div>
+      </div>
       <div class="space-y-4">
-        <details class="bg-white border border-gray-200 rounded-xl px-6 py-5 open:bg-gray-50 transition-colors">
-          <summary class="font-medium text-lg cursor-pointer flex justify-between items-center text-[#111830]">Qual o horário de funcionamento?<svg class="w-5 h-5 transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></summary>
-          <div class="mt-4 text-gray-700">Segunda a sexta: 08:00 – 18:00<br>Sábado: 08:00 – 12:00<br>Domingo: fechado</div>
+        <details class="bg-[#0b1220] border border-[#1e293b] rounded-2xl px-6 py-5 open:bg-[#0f172a] transition-colors">
+          <summary class="font-medium text-base md:text-lg cursor-pointer flex justify-between items-center text-white">
+            Qual o horário de funcionamento?
+            <svg class="chevron w-5 h-5 transition-transform text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="mt-3 text-gray-400 text-sm leading-relaxed">
+            Segunda a sexta: 08:00 – 18:00<br>
+            Sábado: 08:00 – 12:00<br>
+            Domingo: fechado
+          </div>
         </details>
-        <details class="bg-white border border-gray-200 rounded-xl px-6 py-5 open:bg-gray-50 transition-colors">
-          <summary class="font-medium text-lg cursor-pointer flex justify-between items-center text-[#111830]">Onde fica a Auto Center Maranata em Palmas? Tem ponto de referência?<svg class="w-5 h-5 transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></summary>
-          <div class="mt-4 text-gray-700">Estamos na 103 Sul, Avenida JK, número 146, Lote 35, Sala 02, Palmas-TO.<br>Ponto de referência: Na avenida do Restaurante Dom Vergilio, ao lado da MediCão</div>
+
+        <details class="bg-[#0b1220] border border-[#1e293b] rounded-2xl px-6 py-5 open:bg-[#0f172a] transition-colors">
+          <summary class="font-medium text-base md:text-lg cursor-pointer flex justify-between items-center text-white">
+            Onde fica a Auto Center Maranata em Palmas? Tem ponto de referência?
+            <svg class="chevron w-5 h-5 transition-transform text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="mt-3 text-gray-400 text-sm leading-relaxed">
+            103 Sul, Avenida JK, número 146, Lote 35, Sala 02, Palmas-TO.<br>
+            Ponto de referência: na avenida do Restaurante Dom Vergilio, ao lado da MediCão.
+          </div>
         </details>
-        <details class="bg-white border border-gray-200 rounded-xl px-6 py-5 open:bg-gray-50 transition-colors">
-          <summary class="font-medium text-lg cursor-pointer flex justify-between items-center text-[#111830]">Vocês trabalham com câmbio automático de todas as marcas?<svg class="w-5 h-5 transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></summary>
-          <div class="mt-4 text-gray-700">Sim! Somos especializados em câmbio automático e atendemos todas as montadoras (Toyota, Honda, Chevrolet, Ford, Volkswagen, Hyundai, Jeep, BMW, Mercedes e mais). Usamos peças originais ou de alta qualidade com garantia.</div>
+
+        <details class="bg-[#0b1220] border border-[#1e293b] rounded-2xl px-6 py-5 open:bg-[#0f172a] transition-colors">
+          <summary class="font-medium text-base md:text-lg cursor-pointer flex justify-between items-center text-white">
+            Vocês trabalham com câmbio automático de todas as marcas?
+            <svg class="chevron w-5 h-5 transition-transform text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="mt-3 text-gray-400 text-sm leading-relaxed">
+            Sim! Somos especializados em câmbio automático e atendemos todas as montadoras (Toyota, Honda, Chevrolet, Ford, Volkswagen, Hyundai, Jeep, BMW, Mercedes e mais). Usamos peças originais ou de alta qualidade com garantia.
+          </div>
         </details>
-        <details class="bg-white border border-gray-200 rounded-xl px-6 py-5 open:bg-gray-50 transition-colors">
-          <summary class="font-medium text-lg cursor-pointer flex justify-between items-center text-[#111830]">Quanto tempo leva uma revisão preventiva de câmbio automático?<svg class="w-5 h-5 transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></summary>
-          <div class="mt-4 text-gray-700">Geralmente de 2 a 4 horas, dependendo do modelo e do tipo de serviço (troca de fluido, flushing ou programação). Agende com antecedência para evitar espera.</div>
+
+        <details class="bg-[#0b1220] border border-[#1e293b] rounded-2xl px-6 py-5 open:bg-[#0f172a] transition-colors">
+          <summary class="font-medium text-base md:text-lg cursor-pointer flex justify-between items-center text-white">
+            Quanto tempo leva uma revisão preventiva de câmbio automático?
+            <svg class="chevron w-5 h-5 transition-transform text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="mt-3 text-gray-400 text-sm leading-relaxed">
+            Geralmente de 2 a 4 horas, dependendo do modelo e do tipo de serviço (troca de fluido, flushing ou programação). Agende com antecedência para evitar espera.
+          </div>
         </details>
-        <details class="bg-white border border-gray-200 rounded-xl px-6 py-5 open:bg-gray-50 transition-colors">
-          <summary class="font-medium text-lg cursor-pointer flex justify-between items-center text-[#111830]">Vocês dão garantia nos serviços?<svg class="w-5 h-5 transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></summary>
-          <div class="mt-4 text-gray-700">Sim! Oferecemos garantia de até 6 meses em serviços de câmbio automático e manutenção preventiva (varia conforme o serviço). Tudo com nota fiscal e transparência total.</div>
+
+        <details class="bg-[#0b1220] border border-[#1e293b] rounded-2xl px-6 py-5 open:bg-[#0f172a] transition-colors">
+          <summary class="font-medium text-base md:text-lg cursor-pointer flex justify-between items-center text-white">
+            Vocês dão garantia nos serviços?
+            <svg class="chevron w-5 h-5 transition-transform text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="mt-3 text-gray-400 text-sm leading-relaxed">
+            Sim! Oferecemos garantia de até 6 meses em serviços de câmbio automático e manutenção preventiva (varia conforme o serviço). Tudo com nota fiscal e transparência total.
+          </div>
         </details>
-        <details class="bg-white border border-gray-200 rounded-xl px-6 py-5 open:bg-gray-50 transition-colors">
-          <summary class="font-medium text-lg cursor-pointer flex justify-between items-center text-[#111830]">Preciso agendar ou posso chegar direto?<svg class="w-5 h-5 transition-transform text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></summary>
-          <div class="mt-4 text-gray-700">Recomendamos agendar pelo WhatsApp para garantir atendimento rápido e sem espera. Chegar direto também é possível, mas pode haver fila em horários de pico.</div>
+
+        <details class="bg-[#0b1220] border border-[#1e293b] rounded-2xl px-6 py-5 open:bg-[#0f172a] transition-colors">
+          <summary class="font-medium text-base md:text-lg cursor-pointer flex justify-between items-center text-white">
+            Preciso agendar ou posso chegar direto?
+            <svg class="chevron w-5 h-5 transition-transform text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="mt-3 text-gray-400 text-sm leading-relaxed">
+            Recomendamos agendar pelo WhatsApp para garantir atendimento rápido e sem espera. Chegar direto também é possível, mas pode haver fila em horários de pico.
+          </div>
         </details>
       </div>
     </div>
   </section>
 
   <!-- CONTATO -->
-  <section id="contact" class="py-24 bg-[#111830]">
-    <div class="container px-4 md:px-6">
-      <div class="grid lg:grid-cols-2 gap-12 bg-white rounded-3xl overflow-hidden border border-gray-200">
+  <section id="contact" class="py-28 bg-[#080d1a]">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <div class="grid lg:grid-cols-2 gap-10 bg-white rounded-3xl overflow-hidden border border-gray-200 shadow-2xl shadow-black/10">
         <div class="p-10 md:p-14 space-y-10">
           <div>
-            <h2 class="text-3xl md:text-4xl font-display font-bold text-[#111830] mb-3">Fale Conosco</h2>
-            <p class="text-gray-700">Estamos prontos para ajudar você e seu veículo. Ligue, mande WhatsApp ou venha nos visitar!</p>
+            <span class="section-label text-xs bg-[#f04127]/10 text-[#f04127] border-[#f04127]/30">Contato</span>
+            <h2 class="mt-4 text-3xl md:text-4xl font-display font-bold text-[#111830] mb-3">Fale Conosco</h2>
+            <p class="text-gray-600 text-sm md:text-base">Estamos prontos para ajudar você e seu veículo. Ligue, mande WhatsApp ou venha nos visitar!</p>
           </div>
+
           <div class="space-y-4">
             <div class="flex items-start gap-5 p-6 rounded-2xl bg-gray-50 border border-gray-200">
-              <div class="w-14 h-14 rounded-full bg-[#f04127]/10 flex items-center justify-center shrink-0">
-                <svg class="w-7 h-7 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <div class="w-12 h-12 rounded-full bg-[#f04127]/10 flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
               </div>
               <div>
-                <h4 class="font-bold text-[#111830] mb-1">Endereço</h4>
-                <p class="text-gray-700 text-sm leading-relaxed">103 Sul, Avenida JK. número 146, Lote 35, Sala 02,<br>Palmas, Tocantins</p>
+                <h4 class="font-semibold text-[#111830] mb-1 text-sm">Endereço</h4>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  103 Sul, Avenida JK, número 146, Lote 35, Sala 02,<br>Palmas, Tocantins
+                </p>
               </div>
             </div>
+
             <div class="flex items-start gap-5 p-6 rounded-2xl bg-gray-50 border border-gray-200">
-              <div class="w-14 h-14 rounded-full bg-[#f04127]/10 flex items-center justify-center shrink-0">
-                <svg class="w-6 h-6 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <div class="w-12 h-12 rounded-full bg-[#f04127]/10 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
               </div>
               <div>
-                <h4 class="font-bold text-[#111830] mb-1">Telefones</h4>
-                <p class="text-gray-700 text-sm leading-relaxed">(63) 3233-6759<br>+55 63 99959-2030</p>
+                <h4 class="font-semibold text-[#111830] mb-1 text-sm">Telefones</h4>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  (63) 3233-6759<br>
+                  +55 63 99959-2030
+                </p>
               </div>
             </div>
+
             <div class="flex items-start gap-5 p-6 rounded-2xl bg-gray-50 border border-gray-200">
-              <div class="w-14 h-14 rounded-full bg-[#f04127]/10 flex items-center justify-center shrink-0">
-                <svg class="w-7 h-7 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              <div class="w-12 h-12 rounded-full bg-[#f04127]/10 flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
               </div>
               <div>
-                <h4 class="font-bold text-[#111830] mb-1">Horário de Funcionamento</h4>
-                <p class="text-gray-700 text-sm leading-relaxed">Segunda a sexta: 08:00 – 18:00<br>Sábado: 08:00 – 12:00<br>Domingo: Fechado</p>
+                <h4 class="font-semibold text-[#111830] mb-1 text-sm">Horário de funcionamento</h4>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  Segunda a sexta: 08:00 – 18:00<br>
+                  Sábado: 08:00 – 12:00<br>
+                  Domingo: Fechado
+                </p>
               </div>
             </div>
           </div>
+
           <a href="https://wa.me/5563999592030?text=Olá!%20Gostaria%20de%20um%20orçamento"
              target="_blank"
              onclick="return gtag_report_conversion(this.href, 'LKU8COGHqIIcEJamkKMB');"
-             class="flex items-center justify-center gap-3 w-full py-5 bg-[#25D366] hover:bg-[#1da851] text-white font-bold rounded-xl shadow-lg transition-all text-lg">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-6 h-6" alt="WhatsApp">
+             class="mt-4 flex items-center justify-center gap-3 w-full py-4 md:py-5 bg-[#25D366] hover:bg-[#1da851] text-white font-bold rounded-2xl shadow-lg shadow-[#25D366]/40 transition-all text-base md:text-lg">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-5 h-5" alt="WhatsApp">
             Conversar no WhatsApp
           </a>
         </div>
-        <div class="relative h-96 lg:h-auto">
-          <iframe class="absolute inset-0 w-full h-full border-0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3926.9471463434015!2d-48.338153500000004!3d-10.1849478!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9324cb3a6c95f1c9%3A0x2d4798fcc457a94a!2sAuto%20Center%20Maranata!5e0!3m2!1spt-BR!2sbr!4v1771943979738!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <div class="relative h-80 lg:h-auto">
+          <iframe class="absolute inset-0 w-full h-full border-0 rounded-none lg:rounded-l-3xl"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3926.9471463434015!2d-48.338153500000004!3d-10.1849478!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9324cb3a6c95f1c9%3A0x2d4798fcc457a94a!2sAuto%20Center%20Maranata!5e0!3m2!1spt-BR!2sbr!4v1771943979738!5m2!1spt-BR!2sbr"
+                  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
-      <div class="mt-12">
+
+      <div class="mt-14">
         <h3 class="text-center text-3xl font-display font-bold text-white mb-8">Nossa Oficina</h3>
-        <div class="overflow-hidden relative">
-          <div class="flex animate-marquee gap-6 whitespace-nowrap">
+        <div class="overflow-hidden relative rounded-3xl border border-white/10 bg-[#020617] py-4">
+          <div class="flex animate-marquee gap-6 whitespace-nowrap px-4">
             <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/unnamed-2.webp?allow_lossy=1" class="h-64 object-cover rounded-2xl" alt="Oficina 1">
             <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/unnamed-1-edited.webp?allow_lossy=1" class="h-64 object-cover rounded-2xl" alt="Oficina 2">
-            <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/unnamed.webp?allow_lossy=1" class="h-64 object-cover rounded-2xl" alt="Oficina 3">
-            <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/unnamed-2.webp?allow_lossy=1" class="h-64 object-cover rounded-2xl" alt="Oficina 1">
-            <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/unnamed-1-edited.webp?allow_lossy=1" class="h-64 object-cover rounded-2xl" alt="Oficina 2">
-            <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/unnamed.webp?allow_lossy=1" class="h-64 object-cover rounded-2xl" alt="Oficina 3">
+            <!-- unnamed.webp foi removida daqui, repetimos as outras para manter o carrossel fluido -->
+            <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/unnamed-2.webp?allow_lossy=1" class="h-64 object-cover rounded-2xl" alt="Oficina 1 repetida">
+            <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/unnamed-1-edited.webp?allow_lossy=1" class="h-64 object-cover rounded-2xl" alt="Oficina 2 repetida">
           </div>
         </div>
       </div>
@@ -590,26 +1069,32 @@
   </section>
 
   <!-- INSTAGRAM -->
-  <section id="instagram" class="py-20 md:py-24 bg-white border-t border-gray-200">
-    <div class="container px-4 md:px-6 mx-auto">
+  <section id="instagram" class="py-24 bg-white border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
       <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
         <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-[#f04127]/10 text-[#f04127] text-base font-semibold">
           <i class="fab fa-instagram text-2xl"></i>
           @autocentermaranata
         </div>
-        <h2 class="text-4xl md:text-5xl font-display font-bold text-[#111830] mt-6 leading-tight">Fique por dentro no nosso <span class="text-[#f04127]">Instagram</span></h2>
-        <p class="text-lg md:text-xl text-gray-600 mt-5 leading-relaxed">Dicas de manutenção, antes e depois de serviços, promoções e o dia a dia da oficina especializada em câmbio automático em Palmas-TO.</p>
+        <h2 class="text-4xl md:text-5xl font-display font-bold text-[#111830] mt-6 leading-tight">
+          Fique por dentro no nosso <span class="text-[#f04127]">Instagram</span>
+        </h2>
+        <p class="text-lg md:text-xl text-gray-600 mt-5 leading-relaxed">
+          Dicas de manutenção, antes e depois de serviços, promoções e o dia a dia da oficina especializada em câmbio automático em Palmas-TO.
+        </p>
       </div>
+
       <div class="max-w-6xl mx-auto">
-        <div style="max-width:1000px; margin:3rem auto 0; border-radius:1rem; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.1);">
+        <div style="max-width:1000px; margin:3rem auto 0; border-radius:1rem; overflow:hidden; box-shadow:0 10px 30px rgba(15,23,42,0.15);">
           <iframe src="https://www.instagram.com/autocentermaranata/embed" frameborder="0" scrolling="no" allowtransparency="true" style="width:100%; height:800px; border:none; display:block;"></iframe>
         </div>
       </div>
+
       <div class="text-center mt-10 md:mt-12">
         <a href="https://www.instagram.com/autocentermaranata/"
            target="_blank"
            onclick="return gtag_report_conversion(this.href, 'LKU8COGHqIIcEJamkKMB');"
-           class="inline-flex items-center justify-center gap-3 px-8 py-4 md:px-10 md:py-5 bg-[#f04127] hover:bg-[#d32e1e] text-white font-bold rounded-xl shadow-xl transition-all text-lg md:text-xl min-h-[56px] md:min-h-[64px]">
+           class="btn-primary inline-flex items-center justify-center gap-3 px-10 py-4 md:px-12 md:py-5 text-white font-bold rounded-2xl text-lg md:text-xl">
           <i class="fab fa-instagram text-2xl"></i>
           Seguir no Instagram
         </a>
@@ -618,35 +1103,44 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="bg-[#111830] border-t border-[#2c3e50] pt-16 pb-10 text-white">
-    <div class="container px-4 md:px-6">
-      <div class="grid md:grid-cols-4 gap-12 mb-12">
-        <div class="space-y-6">
+  <footer class="bg-[#050816] border-t border-[#1f2937] pt-16 pb-10 text-white">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <div class="grid md:grid-cols-4 gap-10 mb-12">
+        <div class="space-y-4 md:col-span-2">
           <div class="flex items-center gap-3">
-            <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/4-photoroom.png?allow_lossy=1" alt="Auto Center Maranata" class="h-12 w-auto">
+            <img src="https://bancodeimagensautocentermaranata.wordpress.com/wp-content/uploads/2026/02/4-photoroom.png?allow_lossy=1" alt="Auto Center Maranata" class="h-10 w-auto">
             <div class="flex flex-col leading-none">
-              <span class="font-display font-bold text-xl">AUTO CENTER</span>
-              <span class="text-xs font-semibold text-[#f04127] tracking-widest uppercase">MARANATA</span>
+              <span class="font-display font-bold text-xl tracking-tight">AUTO CENTER</span>
+              <span class="text-[10px] font-semibold text-[#f04127] tracking-[0.2em] uppercase">MARANATA</span>
             </div>
           </div>
-          <p class="text-gray-300 text-sm leading-relaxed">Especialistas em câmbio automático e manutenção automotiva de alta qualidade em Palmas-TO.</p>
+          <p class="text-gray-400 text-sm leading-relaxed max-w-md">
+            Especialistas em câmbio automático e manutenção automotiva de alta qualidade em Palmas-TO.
+          </p>
         </div>
-        <div class="space-y-6">
+
+        <div class="space-y-4">
           <h4 class="font-display font-bold text-lg">Contato</h4>
-          <ul class="space-y-4 text-sm text-gray-300">
+          <ul class="space-y-3 text-sm text-gray-400">
             <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-[#f04127] mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-              <span>103 Sul, Avenida JK. número 146, Lote 35, Sala 02,<br>Palmas – TO</span>
+              <svg class="w-4 h-4 text-[#f04127] mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <span>103 Sul, Avenida JK, número 146, Lote 35, Sala 02,<br>Palmas – TO</span>
             </li>
             <li class="flex items-center gap-3">
-              <svg class="w-4 h-4 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <svg class="w-4 h-4 text-[#f04127]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
               <span>(63) 3233-6759 / +55 63 99959-2030</span>
             </li>
           </ul>
         </div>
       </div>
-      <div class="border-t border-[#2c3e50] pt-8 text-center text-sm text-gray-300">
-        © 2026 Auto Center Maranata. Todos os direitos reservados.
+
+      <div class="border-t border-[#1f2937] pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-gray-500">
+        <span>© 2026 Auto Center Maranata. Todos os direitos reservados.</span>
       </div>
     </div>
   </footer>
@@ -655,27 +1149,30 @@
   <a href="https://wa.me/5563999592030?text=Olá!%20Preciso%20de%20um%20orçamento"
      target="_blank"
      onclick="return gtag_report_conversion(this.href, 'LKU8COGHqIIcEJamkKMB');"
-     class="fixed bottom-8 right-8 z-[999] w-16 h-16 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-9 h-9" alt="WhatsApp">
+     class="wa-float fixed bottom-6 right-6 z-[999] w-14 h-14 md:w-16 md:h-16 rounded-full text-white flex items-center justify-center">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-7 h-7 md:w-8 md:h-8" alt="WhatsApp">
   </a>
 
   <!-- Cookie Banner -->
   <div id="cookie-banner">
-    <p>Usamos cookies para melhorar sua experiência no site. Ao continuar, você aceita nossa <a href="#" style="color:#f04127; text-decoration:underline;">Política de Cookies</a>.</p>
+    <p class="text-xs sm:text-sm text-gray-200">
+      Usamos cookies para melhorar sua experiência no site. Ao continuar, você aceita nossa
+      <a href="#" style="color:#f04127; text-decoration:underline;">Política de Cookies</a>.
+    </p>
     <button id="accept-cookies">Aceitar</button>
   </div>
 
   <!-- Scripts -->
   <script>
     // Menu mobile
-    document.getElementById('menu-toggle').addEventListener('click', function() {
+    document.getElementById('menu-toggle')?.addEventListener('click', function() {
       const menu = document.getElementById('nav-menu');
-      menu.classList.toggle('hidden');
-      menu.classList.toggle('flex');
-      if (!menu.classList.contains('hidden')) {
-        menu.classList.add('absolute', 'top-full', 'left-0', 'right-0', 'bg-[#111830]', 'border-b', 'border-[#2c3e50]', 'p-6', 'shadow-lg', 'text-white');
+      if (!menu) return;
+      menu.classList.toggle('mobile-open');
+      if (menu.classList.contains('mobile-open')) {
+        menu.classList.remove('hidden');
       } else {
-        menu.classList.remove('absolute', 'top-full', 'left-0', 'right-0', 'bg-[#111830]', 'border-b', 'border-[#2c3e50]', 'p-6', 'shadow-lg');
+        menu.classList.add('hidden');
       }
     });
 
@@ -688,19 +1185,23 @@
     // Cookie banner
     const banner = document.getElementById('cookie-banner');
     const acceptBtn = document.getElementById('accept-cookies');
+
     function showBanner() {
       if (banner) banner.style.display = 'flex';
     }
     function hideBanner() {
       if (banner) banner.style.display = 'none';
     }
+
     let cookiesAccepted = false;
     try {
       cookiesAccepted = localStorage.getItem('cookiesAccepted') === 'true';
     } catch (e) {}
+
     if (!cookiesAccepted) {
       showBanner();
     }
+
     if (acceptBtn) {
       acceptBtn.addEventListener('click', function() {
         try {
@@ -710,6 +1211,5 @@
       });
     }
   </script>
-
 </body>
 </html>
