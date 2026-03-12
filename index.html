@@ -1280,53 +1280,43 @@
   </div>
 
   <!-- Scripts -->
-  <script>
-    // Menu mobile
-    document.getElementById('menu-toggle')?.addEventListener('click', function() {
-      const menu = document.getElementById('nav-menu');
-      if (!menu) return;
-      menu.classList.toggle('mobile-open');
-      if (menu.classList.contains('mobile-open')) {
-        menu.classList.remove('hidden');
-      } else {
-        menu.classList.add('hidden');
-      }
+<script>
+  // Menu mobile
+  document.getElementById('menu-toggle')?.addEventListener('click', function() {
+    const menu = document.getElementById('nav-menu');
+    if (!menu) return;
+    menu.classList.toggle('mobile-open');
+    if (menu.classList.contains('mobile-open')) {
+      menu.classList.remove('hidden');
+    } else {
+      menu.classList.add('hidden');
+    }
+  });
+
+  // Ver mais serviços — CORRIGIDO
+  document.getElementById('ver-mais-servicos')?.addEventListener('click', function() {
+    document.querySelectorAll('.more-services').forEach(el => el.classList.remove('hidden'));
+    this.style.display = 'none';
+  });
+
+  // Cookie banner
+  const banner    = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('accept-cookies');
+
+  function showBanner() { if (banner) banner.style.display = 'flex'; }
+  function hideBanner()  { if (banner) banner.style.display = 'none'; }
+
+  let cookiesAccepted = false;
+  try { cookiesAccepted = localStorage.getItem('cookiesAccepted') === 'true'; } catch(e) {}
+
+  if (!cookiesAccepted) showBanner();
+
+  if (acceptBtn) {
+    acceptBtn.addEventListener('click', function() {
+      try { localStorage.setItem('cookiesAccepted', 'true'); } catch(e) {}
+      hideBanner();
     });
-
-    // Ver mais serviços
-    document.getElementById('ver-mais-servicos')?.addEventListener('click', function() {
-      documentSelectorAll('.more-services').forEach(el => el.classList.remove('hidden'));
-      this.style.display = 'none';
-    });
-
-    // Cookie banner
-    const banner = document.getElementById('cookie-banner');
-    const acceptBtn = document.getElementById('accept-cookies');
-
-    function showBanner() {
-      if (banner) banner.style.display = 'flex';
-    }
-    function hideBanner() {
-      if (banner) banner.style.display = 'none';
-    }
-
-    let cookiesAccepted = false;
-    try {
-      cookiesAccepted = localStorage.getItem('cookiesAccepted') === 'true';
-    } catch (e) {}
-
-    if (!cookiesAccepted) {
-      showBanner();
-    }
-
-    if (acceptBtn) {
-      acceptBtn.addEventListener('click', function() {
-        try {
-          localStorage.setItem('cookiesAccepted', 'true');
-        } catch (e) {}
-        hideBanner();
-      });
-    }
-  </script>
+  }
+</script>
 </body>
 </html>
